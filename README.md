@@ -50,59 +50,67 @@ python3 bookkeeper.py      # incoming mid Apr 2022
 ```
 
 # Installation
-1. **Create Telegram API** at my.telegram.org, you need API_ID and API_HASH
-2. **Create *.env* file** and insert your credential and telegram API keys into it 
+1. **Telegram API**
+  
+   Create Telegram API at my.telegram.org, you need **api_id** and **api_hash**
 
-``` python
-GROUP_NAME = 'groupName' 
-MY_USERNAME = "@username"
+<br>
+
+2. **FTX exchange**
+    1. **Create FTX account**
+    2. **Deposit initial capital**
+    3. **Create FTX API**
+
+<br>
+
+3. **Create configurations file** 
+
+    Create .env file inside project/ and insert your credential and API keys into it 
+
+```
+USERNAME_TELEGRAM = "@username"
 PHONE_NUMBER = "+111111111" 
-API_ID = 123456
-API_HASH = "AAAAAAAAAAAAAAAAAAAAA" 
+API_ID_TELEGRAM = 123456
+API_HASH_TELEGRAM = "AAAAAAAAAAAAAAAAAAAAA" 
+
+CHANNEL_1 = 'Test1'
+CHANNEL_2 = 'Test2'
+# ...
+CHANNEL_20 = 'KingOfCryptoVip'
+
+API_ID_EXCHANGE_FTX = 123456789
+API_HASH_EXCHANGE_FTX = "AAAAAAAAAAAAAAAAAAAAAA" 
+
 ```
 
-3. **Install packages**
 
-```bash 
+3. **Install 3rd party libraries**
+
+```bash
 python3 -m venv venv
+```
+```bash
 source venv/bin/activate
+```
+```bash
 python3 -m pip install --upgrade pip 
+```
+```bash
 pip install -r requirements.txt 
 ```
 
 <br>
 
-# Credentials configurations
-**.env file** is a configuration where you can add all your personal
-information at once without exposing it.
+### Credentials
 
-``` python
-GROUP_NAME_1 = 'groupName1'
-GROUP_NAME_2 = 'groupName2' 
-
-MY_USERNAME = "@username"
-PHONE_NUMBER = "+111111111" 
-API_ID = 123456
-API_HASH = "AAAAAAAAAAAAAAAAAAAAA" 
-```
-**Telegram group names**
-Telegram group that I need to scan for my trading operations
-``` python
-GROUP_NAME_1 = 'Test1'
-GROUP_NAME_2 = 'Test2'
-# ...
-GROUP_NAME_N = 'KingOfCryptoVip'
-```
-**Credentials**
+#### Telegram username and phone number
 Insert your credential as follow, use full phone number including + and country code 
 ```
 USERNAME = "@my_username"
 PHONE_NUMBER = "+111111111111" 
 ```
 
-**Telegram API keys**
-Use API id and API hash from: <br>
-my.telegram.org <br>
+#### Telegram API keys on :    _my.telegram.org_
 ``` python
 API_ID = 123456789
 API_HASH = "AAAAAAAAAAAAAAAAAAAAAA" 
