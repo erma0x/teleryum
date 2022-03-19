@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     print('SCANNER',colored('[ACTIVE]','green')+"\nTelegram client connected with: ",colored(USERNAME_TELEGRAM,'yellow'))
 
-##### cryptohopperofficial ##################################################################################################################################
+##### freecrypto_signals ##################################################################################################################################
     @client.on(events.NewMessage(chats=CHANNEL_1))  
     async def trader_CHANNEL_1(event):
         new_message = event.message.message 
