@@ -40,8 +40,8 @@ if __name__ == "__main__":
         for pattern in TEXT_PATTERNS:
             if pattern not in new_message:   
                 return False
-        
-                date = str(event.message.date)
+    
+        date = str(event.message.date)
         print('NEW SIGNAL from : ',colored(CHANNEL_1,'green'),'\t', date[:-6],new_message)
 
         # PARSER
