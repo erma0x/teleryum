@@ -35,17 +35,51 @@ if __name__ == "__main__":
 
     print(colored('LISTENER ACTIVE','green')+"\ntelegram client connected with: ",colored(MY_USERNAME,'yellow'),'\ndatabase:\t',colored(NAME_DB,'yellow'))
 #___________________________________________________________________________________________________________
-    @client.on(events.NewMessage(chats=CRYPTO_HOPPER_OFFICAIL))
-    async def scanner_CRYPTO_HOPPER_OFFICAIL(event):
+    @client.on(events.NewMessage(chats=CHANNEL_1)) # cryptohopperofficial
+    async def trader_CHANNEL_1(event):
         new_message = event.message.message 
         TEXT_PATTERNS = ('Sell','Buy','StopLoss')
         for pattern in TEXT_PATTERNS:
             if pattern not in new_message:   
                 return False
 
+        op_data={'Side':'','Symbol':'','Buy':{},'Sell':{},'Stoploss':''}      # GENERATE BASE DATA
+        print('id message ',id_message,' date ',date,' group ', sender_group)  # PRINT
+
+        for row in text_message.split('\n'): # TEX MESSAGE ROWS 
+            if '#' in row:
+                op_data['Symbol'] = row[1:].replace(' ','')
+
+            if row.find('Buy') < row.find('Sell'):
+                op_data['Side']='Sell'
+            else:
+                op_data['Side']='Buy'
+
+            if 'Buy' in row:
+                if '-' in row.split()[1]:
+                    temp = row.split()[1].split('-')
+                    for n in range(len(temp)):
+                        op_data['Buy'][n] = temp[n]
+                else:
+                    op_data['Buy'] = row.split()[1]
+            if 'Sell' in row:
+                if '-' in row.split()[1]:
+                    temp=row.split()[1].split('-')
+                    for n in range(len(temp)):
+                        op_data['Sell'][n] = temp[n]
+                else:
+                    op_data['Sell'] = row.split()[1]
+
+            if 'StopLoss' in row or 'Stoploss' in row :
+                op_data['Stoploss'] = row.split()[1]
+
+            print(op_data)
+
         date = str(event.message.date)
-        write_message( get_new_id(NAME_DB)  , date[:-6],  CRYPTO_HOPPER_OFFICAIL, new_message,  NAME_DB)            
-        print('NEW signal from : ',colored(CRYPTO_HOPPER_OFFICAIL,'green'),'\t', date[:-6],new_message)
+        print('NEW signal from : ',colored(CHANNEL_1,'green'),'\t', date[:-6],new_message)
+        #for operation in op_data  
+           # traderFTX(operation)
+
 #___________________________________________________________________________________________________________
 #     @client.on(events.NewMessage(chats=GROUP_NAME_2))
 #     async def scanner_Coin_Signals(event):
