@@ -33,19 +33,19 @@ if __name__ == "__main__":
     print('SCANNER',colored('[ACTIVE]','green')+"\nTelegram client connected with: ",colored(USERNAME_TELEGRAM,'yellow'))
 
 ##### freecrypto_signals ##################################################################################################################################
-    @client.on(events.NewMessage(chats=CHANNEL_1))  
+    @client.on(events.NewMessage(chats=CHANNEL_1))
     async def trader_CHANNEL_1(event):
-        new_message = event.message.message 
+        new_message = event.message.message
         TEXT_PATTERNS = ('Sell','Buy','StopLoss')
         for pattern in TEXT_PATTERNS:
-            if pattern not in new_message:   
+            if pattern not in new_message:
                 return False
     
         date = str(event.message.date)
         print('NEW SIGNAL from : ',colored(CHANNEL_1,'green'),'\t', date[:-6],new_message)
 
         # PARSER
-        op_data={'Side':'','Symbol':'','Buy':{},'Sell':{},'Stoploss':''}      
+        op_data={'Side':'','Symbol':'','Buy':{},'Sell':{},'Stoploss':''}
         for row in text_message.split('\n'): # TEXT MESSAGE ROWS 
             if '#' in row:
                 op_data['Symbol'] = row[1:].replace(' ','')

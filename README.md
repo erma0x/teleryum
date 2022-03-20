@@ -1,13 +1,13 @@
-### Description
+# Teleryum
+
+## Description
 Telegram crypto signal scanner and with live KuCoin trader.
 
+## Design Components
+### bot.py
 
-## Components
-### **trader.py**
-
-1. listen db changes
-2. read all messages
-3. operations not placed and if same group
+1. listen all incoming telegram messages
+2. check if the message contain a signal
 4. exctract operation_data
 5. place order
 
@@ -30,14 +30,12 @@ operation_data = {
   }
 ```
 
-### **scanner.py**
-listen tg and write db
-### **accounter.py**
-listen db and exchange api for accounting
+### accounter.py
+listen db and exchange api for accounting and statistics
 
 <br>
 
-![alt text](/docs/flowcharts/teleryum_flowchart.jpg)
+![alt text](/docs/flowcharts/flowchart.png)
 
 
 # How to Run 
