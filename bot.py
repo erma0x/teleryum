@@ -11,6 +11,8 @@ from termcolor import colored
 
 from telethon.sync import TelegramClient, events
 
+from params import *
+
 if __name__ == "__main__":
 
     now = datetime.now()
@@ -21,11 +23,6 @@ if __name__ == "__main__":
     API_ID_TELEGRAM = os.getenv('API_ID_TELEGRAM')
     API_HASH_TELEGRAM = os.getenv('API_HASH_TELEGRAM')
 
-    # test channels
-    PRIVATE_TEST_CHANNEL = os.getenv('PRIVATE_TEST_CHANNEL')
-    PUBLIC_TEST_CHANNEL = os.getenv('PUBLIC_TEST_CHANNEL')
-    # channels names
-    CHANNEL_1 = os.getenv('CHANNEL_1')
     # connect to telegram client with my.telegram.com API
     client = TelegramClient(USERNAME_TELEGRAM, API_ID_TELEGRAM, API_HASH_TELEGRAM) 
     client.start()
@@ -45,7 +42,8 @@ if __name__ == "__main__":
         print('NEW SIGNAL from : ',colored(CHANNEL_1,'green'),'\t', date[:-6],new_message)
 
         # PARSER
-        op_data={'Side':'','Symbol':'','Buy':{},'Sell':{},'Stoploss':''}
+        op_data={'side':'','symbol':'','buy':{},'sell':{},'stoploss':''}
+
         for row in text_message.split('\n'): # TEXT MESSAGE ROWS 
             if '#' in row:
                 op_data['Symbol'] = row[1:].replace(' ','')
