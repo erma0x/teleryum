@@ -1,4 +1,4 @@
-![alt text](/docs/header.png)
+![alt text](/docs/img/header.png)
 
 
 ## Description
@@ -40,8 +40,22 @@ operation_data={
 
 <br>
 
+
+CHANNEL_1 = 'freecrypto_signals'
+CHANNEL_2 = 'cryptosignals0rg'
+CHANNEL_3 = 'fatpigsignals'
+CHANNEL_4 = 'BinanceKillersVipOfficial'
+CHANNEL_5 = 'CryptoTrades'
+CHANNEL_6 = 'Coin_Signals'
+CHANNEL_7 = 'HIRN_CRYPTO'
+CHANNEL_8 = 'cryptohopperofficial'
+CHANNEL_9 = 'altsignals'
+CHANNEL_10 = 'SignalsBlueChannel'
+
+
+
 ### UML workflow
-![alt text](/docs/flowcharts/flowchart.png)
+![alt text](/docs/img/flowchart.png)
 
 
 ## How to Run 
