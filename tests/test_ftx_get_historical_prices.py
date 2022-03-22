@@ -1,5 +1,3 @@
-
-
 from client import FtxClient
 import os
 from datetime import datetime

@@ -1,5 +1,6 @@
 *.session
 .env
+test_params.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

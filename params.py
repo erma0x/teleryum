@@ -1,6 +1,3 @@
-PRIVATE_TEST_CHANNEL = 'test_private'
-PUBLIC_TEST_CHANNEL = 'test_channel_pubblico_24991204'
-
 CHANNEL_1 = 'freecrypto_signals'
 CHANNEL_2 = 'cryptosignals0rg'
 CHANNEL_3 = 'fatpigsignals'
