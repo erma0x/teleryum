@@ -1,5 +1,5 @@
 # TEST OF GETTING TELEGRAM MESSAGES IN REAL TIME
-##### cryptohopperofficial 
+
 import os
 from datetime import datetime
 
@@ -27,6 +27,7 @@ if __name__ == "__main__":
     client = TelegramClient(USERNAME_TELEGRAM, API_ID_TELEGRAM, API_HASH_TELEGRAM) 
     client.start()
 
+    # cryptohopperofficial 
     @client.on(events.NewMessage(chats=CHANNEL_1))  
     async def trader_CHANNEL_1(event):
         new_message = event.message.message 

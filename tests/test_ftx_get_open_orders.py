@@ -10,4 +10,6 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-print(client.get_open_orders(market='BTCBULL/USD'))
+print(client.get_open_orders(market='BTC-PERP'))
+
+#print(client.get_open_orders(market='BTC/USDT'))

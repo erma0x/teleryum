@@ -12,7 +12,7 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-order = client.create_subaccount(nickname = 'test')
+order = client.create_subaccount(nickname = 'freecrypto_signals')
 print(order)
 
 

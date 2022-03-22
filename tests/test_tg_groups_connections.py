@@ -11,7 +11,7 @@ GROUP_NAME_1 = os.getenv('GROUP_NAME_1')
 # GROUP_NAME_3 = os.getenv('GROUP_NAME_3')
 # GROUP_NAME_4 = os.getenv('GROUP_NAME_4')
 
-client = TelegramClient('kobayashi', API_ID, API_HASH)
+client = TelegramClient('username', API_ID, API_HASH)
 client.start()
 
 for message in client.get_messages(GROUP_NAME_1, limit=1):

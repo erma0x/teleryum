@@ -12,7 +12,7 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-order = client.get_withdrawal_fee(coin, size, address, method= None, tag= None)
+order = client.get_withdrawal_fee(coin='FTT', size=100, address='example', method= None, tag= None)
 print(order)
 
 

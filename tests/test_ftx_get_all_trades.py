@@ -12,7 +12,7 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-order = client.get_all_trades(market = None,start_time= None,
+order = client.get_all_trades(market = 'XRPBULL/USDT',start_time= None,
         end_time= None)
         
 print(order)
