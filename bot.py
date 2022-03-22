@@ -1,7 +1,8 @@
+#  Teleryum
 #  Copyright (C) Ermano Buikis - All Rights Reserved
 #  Unauthorized copying of this file, via any medium is strictly prohibited
 #  Proprietary and confidential
-#  Written by Ermano Buikis ermano.buikis.com, March 2022
+#  Written by Ermano Buikis ermano.buikis.com, Feb 2022 - March 2022
 
 import os
 from datetime import datetime
