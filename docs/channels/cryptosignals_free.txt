@@ -36,9 +36,3 @@ Sell 148-151-160-180
 StopLoss 118
 By (@SN_crypto)
 
-
-#IRIS 
-Buy 145-141
-Sell 148-151-160-180
-StopLoss 118
-By (@SN_crypto)

@@ -1,5 +1,4 @@
 # TEST OF GETTING TELEGRAM MESSAGES IN REAL TIME
-
 import os
 from datetime import datetime
 

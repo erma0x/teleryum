@@ -15,6 +15,7 @@ listen db and exchange api for accounting and statistics
 
 ### Data structures
 ``` python
+
 message_data = {
     'symbol':'BTC/USDT',
     'side':'buy',
@@ -24,13 +25,25 @@ message_data = {
     'stoploss':{1:float,2: ...}
   }
 
-operations_data={{
+# EXAMPLE
+message_data={{
         'side':'buy',
-        'symbol':'EGLD-USDT',
+        'symbol':'BTC-PERP',
         'buy':{1 : '144.20' },
         'sell':{1:'144.78',2:'145.35',3:'146.22'},
         'stoploss':'139.87'
         'leverage': 10 
+        
+
+operation_data= {
+    market: str,
+    side: str,
+    price: float,
+    size: float, 
+    type: str = 'limit',
+    reduce_only: bool = False,
+
+        
         }
 ```
 
