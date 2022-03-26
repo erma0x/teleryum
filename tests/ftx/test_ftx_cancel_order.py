@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')

@@ -3,6 +3,10 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 
+sys.path.insert(0,sys.path[0].replace('ftx','') )
+
+from client import FtxClient
+
 load_dotenv()
 
 FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')
