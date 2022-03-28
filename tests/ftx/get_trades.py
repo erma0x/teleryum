@@ -14,4 +14,4 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-pprint(client.get_trades(market='BTCBULL/USD',start_time = None, end_time = None))
+pprint(client.get_trades(market='ONE-PERP',start_time = None, end_time = None))

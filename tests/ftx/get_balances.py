@@ -20,5 +20,3 @@ client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
 order = client.get_balances()
 pprint(order)
-
-

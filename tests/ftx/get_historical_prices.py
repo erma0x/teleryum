@@ -14,7 +14,7 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-order = client.get_historical_prices(market = 'ETHBULL/USDT', resolution=None , start_time= 10000000,
+order = client.get_historical_prices(market = 'ETH-PERP', resolution=None , start_time= 10000000,
         end_time= 10000001)
 
 pprint(order)

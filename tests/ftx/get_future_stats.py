@@ -16,7 +16,7 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
 order = client.get_future_stats(future_name='BTC-PERP')
-
+print("future_name    =    BTC-PERP  ")
 pprint(order)
 
 
