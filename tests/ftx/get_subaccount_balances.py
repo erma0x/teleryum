@@ -16,6 +16,5 @@ client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
 order1 = client.get_subaccount_balances(nickname='c1')
 order2 = client.get_subaccount_balances(nickname='c2')
-print(order1,order2)
 
-
+pprint(order1,order2)

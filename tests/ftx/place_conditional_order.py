@@ -1,12 +1,12 @@
-import os
-from datetime import datetime
-from dotenv import load_dotenv
 import sys
 
 sys.path.insert(0,sys.path[0].replace('ftx','') )
 
 from client import FtxClient
-
+import os
+from datetime import datetime
+from pprint import pprint
+from dotenv import load_dotenv
 load_dotenv()
 
 FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')
@@ -20,4 +20,4 @@ order  = client.place_conditional_order( market='BTCBULL/USD', side='buy', size=
         trigger_price = None, trail_value = None)
    
 
-print(order)
+pprint(order)
