@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 from termcolor import colored
-from params import *
+from test_params import *
 
 # freecrypto_signals 
 

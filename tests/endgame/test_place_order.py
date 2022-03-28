@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 from pprint import pprint
+from test_params import *
 
 import sys
 
