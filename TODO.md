@@ -12,8 +12,7 @@
 
     comemuovere le api
 
-### edo venerdi
-
+### edo
     commerciabilita' del progetto
     fai degli schemi  
     mentire per farsi abilitare un conto con leva, quali sono i rischi
