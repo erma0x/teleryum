@@ -1,5 +1,9 @@
 
 
+import sys
+
+sys.path.insert(0,sys.path[0].replace('ftx','') )
+
 from client import FtxClient
 import os
 from datetime import datetime

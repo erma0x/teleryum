@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-
 import sys
 
 sys.path.insert(0, sys.path[0].replace('ftx','') )
