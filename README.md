@@ -1,7 +1,13 @@
 ![alt text](/docs/img/header.png)
 
+<br>
 
-Telegram crypto signal scanner and with live FTX exchange. Scan incoming telegram messages from crypto channels, find out if the new message is a signal, and if it's a signal, parse it and send to trade with FTX REST API. 
+Telegram crypto signal scanner and with live FTX exchange. Scan incoming telegram messages  <br>
+from crypto channels, find out if the new message is a signal, and if it's a signal,  <br>
+parse it and send to trade with FTX REST API. 
+
+<br>
+<br>
 
 ## Design Components
 ### Workflow of bot.py 
@@ -10,8 +16,32 @@ Telegram crypto signal scanner and with live FTX exchange. Scan incoming telegra
 4. if it is, exctract operation_data
 5. FTX client place order with operation_data 
 
+## TO DO
+### cambio di STRUTTURA DATI
+
+    unavolta capito come fare le op in manuale
+    e con degli script di prova, devi generare 
+    una struttura dati che possa soddisfare tutti i canali.
+
+### schema movimenti soldi
+
+    BP > N26 > CRYPTO.com > FTX.com
+
+### schema API keys
+
+    comemuovere le api
+
+### edo
+    commerciabilita' del progetto
+    fai degli schemi  
+    mentire per farsi abilitare un conto con leva, quali sono i rischi
+
+
 ### Workflow of accounter.py
 listen db and exchange api for accounting and statistics
+
+<br>
+<br>
 
 ### Data structures
 ``` python
@@ -48,6 +78,7 @@ operation_data= {
 ```
 
 <br>
+<br>
 
 ## Telegram Channels
 ```python
@@ -62,6 +93,9 @@ CHANNEL_8 = 'cryptohopperofficial'
 CHANNEL_9 = 'altsignals'
 CHANNEL_10 = 'SignalsBlueChannel'
 ```
+
+<br>
+<br>
 
 ## FTX REST API python
 
@@ -124,7 +158,14 @@ place_conditional_order()
     'orderPrice': limit_price
 ```
 
+<br>
+<br>
+
 ![alt text](/docs/img/flowchart.png)
+
+
+<br>
+<br>
 
 
 ## How to Run 
@@ -135,12 +176,16 @@ python3 bot.py            # incoming end March 2022
 python3 accounter.py      # incoming mid April 2022
 ```
 
+<br>
+<br>
+
 ## Installation
 1. **Generate Telegram API keys**
   
    Create Telegram API on the following website: my.telegram.org
    <br> you need to generate **api_id** and **api_hash**
 
+<br>
 <br>
 
 2. **Generate FTX exchange API keys**
@@ -192,6 +237,7 @@ Install 3rd party libraries
 pip install -r requirements.txt 
 ```
 
+<br>
 <br>
 
 ## Telegram credentials
