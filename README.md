@@ -17,6 +17,15 @@ parse it and send to trade with FTX REST API.
 5. FTX client place order with operation_data 
 
 ## TO DO
+### capire come fare 1 OP con 1TP e 1SL
+### capire come fare 1 OP con 3TP e 1SL
+### mandare operazioni di un canale offline
+### mandare operazioni di un canale online
+
+
+
+
+
 ### cambio di STRUTTURA DATI
 
     unavolta capito come fare le op in manuale
@@ -71,10 +80,30 @@ operation_data= {
     price: float,
     size: float, 
     type: str = 'limit',
-    reduce_only: bool = False,
-
-        
+    reduce_only: bool = False,        
         }
+
+OUTPUT
+
+{'avgFillPrice': None,
+ 'clientId': '1',
+ 'createdAt': '2022-03-31T00:00:45.813032+00:00',
+ 'filledSize': 0.0,
+ 'future': 'SOL-PERP',
+ 'id': 132710475744,
+ 'ioc': False,
+ 'liquidation': None,
+ 'market': 'SOL-PERP',
+ 'postOnly': False,
+ 'price': 108.01,
+ 'reduceOnly': False,
+ 'remainingSize': 0.1,
+ 'side': 'buy',
+ 'size': 0.1,
+ 'status': 'new',
+ 'type': 'limit'}
+
+
 ```
 
 <br>

@@ -15,5 +15,10 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-pprint(client.get_order_history(market='ONE-PERP',side=None,order_type=None,
-start_time= None, end_time= None))
+order = client.get_order_history(market='SOL-PERP',
+                                side=None,
+                                order_type=None,
+                                start_time= None,
+                                end_time= None)
+
+pprint(order)

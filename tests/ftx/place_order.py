@@ -10,12 +10,15 @@ from client import FtxClient
 
 load_dotenv()
 
-FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')
-FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
+RRFTID = os.getenv('RRFTID')
+RRFTSEC = os.getenv('RRFTSEC')
 
-client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
+client = FtxClient(api_key=RRFTID,api_secret=RRFTSEC)
 
-
-pprint(client.place_order(market='BTCBULL/USD',side='buy',price=99999,size=1.223 ,type='limit',reduce_only=True,
- ioc = False, post_only = False, client_id = None, reject_after_ts = None))
-
+order = client.place_order(market='SOL-PERP',side='sell', price=100.01, size=0.1 ,type='limit',
+                            reduce_only=True,
+                            ioc = False,
+                            post_only = False,
+                            client_id = 1,
+                            reject_after_ts = None)
+pprint(order)

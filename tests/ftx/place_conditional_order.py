@@ -9,14 +9,13 @@ from pprint import pprint
 from dotenv import load_dotenv
 load_dotenv()
 
-FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')
-FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
+RRFTID = os.getenv('RRFTID')
+RRFTSEC = os.getenv('RRFTSEC')
 
-client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
+client = FtxClient(api_key=RRFTID,api_secret=RRFTSEC)
 
-
-order  = client.place_conditional_order( market='BTCBULL/USD', side='buy', size=0.00001, type = 'stop',
-        limit_price = None, reduce_only = False, cancel = True,
-        trigger_price = None, trail_value = None)
+order  = client.place_conditional_order( market='SOL-PERP', side='sell', size=0.1, type = 'stop',
+        limit_price = 100.902, reduce_only = False, cancel = False,
+        trigger_price =  105.902, trail_value = None)
 
 pprint(order)

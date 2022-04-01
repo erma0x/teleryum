@@ -1,3 +1,6 @@
-termcolor==1.1.0
+ciso8601==2.2.0 
+requests==2.27.1 
 python-dotenv==0.19.2
+termcolor==1.1.0
 Telethon==1.24.0
+ccxt==1.77.80
