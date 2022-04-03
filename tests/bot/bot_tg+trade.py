@@ -1,23 +1,21 @@
-import os
-from datetime import datetime
-from dotenv import load_dotenv
-from termcolor import colored
-from telethon.sync import TelegramClient, events
-from test_params import *
 import sys
 import os
 from datetime import datetime
 from dotenv import load_dotenv
 from pprint import pprint
+from termcolor import colored
+from telethon.sync import TelegramClient, events
+from channels import *
+
 load_dotenv()
-RRFTID = os.getenv('RRFTID')
-RRFTSEC = os.getenv('RRFTSEC')
-import ccxt
-exchange = ccxt.ftx({
-                'apiKey': RRFTID,
-                'secret': RRFTSEC,
-                'enableRateLimit': True,
-                    })
+# RRFTID = os.getenv('RRFTID')
+# RRFTSEC = os.getenv('RRFTSEC')
+# import ccxt
+# exchange = ccxt.ftx({
+#                 'apiKey': RRFTID,
+#                 'secret': RRFTSEC,
+#                 'enableRateLimit': True,
+#                     })
 
                     
 if __name__ == "__main__":
@@ -35,9 +33,9 @@ if __name__ == "__main__":
     client.start()
     print('trading-bot',colored('[ACTIVE]','green')+"\nTelegram client connected with: ",colored(USERNAME_TELEGRAM,'yellow'))
 
-# freecrypto_signals 
-    @client.on(events.NewMessage(chats=CHANNEL_1))
-    async def trader_CHANNEL_1(event):
+# freecrypto_signals FAX SIMILE == PUBLIC_TEST_CHANNEL
+    @client.on(events.NewMessage(chats=PUBLIC_TEST_CHANNEL))
+    async def trader_PUBLIC_TEST_CHANNEL(event):
         new_message = event.message.message
         TEXT_PATTERNS = ('Sell','Buy','StopLoss')
         for pattern in TEXT_PATTERNS:
@@ -50,34 +48,34 @@ if __name__ == "__main__":
         # PARSER
         op_data={'side':'','symbol':'','buy':{},'sell':{},'stoploss':''}
 
-        for row in text_message.split('\n'): # TEXT MESSAGE ROWS 
+        for row in new_message.split('\n'): # TEXT MESSAGE ROWS 
             if '#' in row:
-                op_data['Symbol'] = row[1:].replace(' ','')
+                op_data['symbol'] = row[1:].replace(' ','')
 
             if row.find('Buy') < row.find('Sell'):
-                op_data['Side']='Sell'
+                op_data['side']='Sell'
             else:
-                op_data['Side']='Buy'
+                op_data['side']='Buy'
 
             if 'Buy' in row:
                 if '-' in row.split()[1]:
                     temp = row.split()[1].split('-')
                     for n in range(len(temp)):
-                        op_data['Buy'][n] = temp[n]
+                        op_data['buy'][n] = temp[n]
                 else:
-                    op_data['Buy'] = row.split()[1]
+                    op_data['buy'] = row.split()[1]
             if 'Sell' in row:
                 if '-' in row.split()[1]:
                     temp=row.split()[1].split('-')
                     for n in range(len(temp)):
-                        op_data['Sell'][n] = temp[n]
+                        op_data['sell'][n] = temp[n]
                 else:
-                    op_data['Sell'] = row.split()[1]
+                    op_data['sell'] = row.split()[1]
 
             if 'StopLoss' in row or 'Stoploss' in row :
-                op_data['Stoploss'] = row.split()[1]
+                op_data['stoploss'] = row.split()[1]
 
-            print(op_data)
+        print(op_data)
     
     with client:
         client.run_until_disconnected()

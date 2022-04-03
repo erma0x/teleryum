@@ -22,6 +22,9 @@ StopLoss 2800
 By (@SN_crypto)
 """
 
+
+### THE MESSAGE IS TRANSLETED IN THE FOLLOWING ORDERS
+
 order = exchange.create_limit_buy_order('ETH-PERP', 0.01, 3360.00)
 print(order)
 
