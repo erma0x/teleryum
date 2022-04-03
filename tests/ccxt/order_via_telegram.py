@@ -4,7 +4,22 @@ from dotenv import load_dotenv
 from termcolor import colored
 from telethon.sync import TelegramClient, events
 from test_params import *
+import sys
+import os
+from datetime import datetime
+from dotenv import load_dotenv
+from pprint import pprint
+load_dotenv()
+RRFTID = os.getenv('RRFTID')
+RRFTSEC = os.getenv('RRFTSEC')
+import ccxt
+exchange = ccxt.ftx({
+                'apiKey': RRFTID,
+                'secret': RRFTSEC,
+                'enableRateLimit': True,
+                    })
 
+                    
 if __name__ == "__main__":
 
     now = datetime.now()
@@ -63,10 +78,6 @@ if __name__ == "__main__":
                 op_data['Stoploss'] = row.split()[1]
 
             print(op_data)
-
-        # TRADER
-        #for operation in op_data  
-           # traderFTX(operation)
-
+    
     with client:
         client.run_until_disconnected()

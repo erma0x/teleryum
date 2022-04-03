@@ -12,7 +12,7 @@ from termcolor import colored
 
 from telethon.sync import TelegramClient, events
 
-from params import *
+from channels import *
 
 if __name__ == "__main__":
 
