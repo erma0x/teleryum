@@ -6,12 +6,9 @@
 
 import os
 from datetime import datetime
-
 from dotenv import load_dotenv
 from termcolor import colored
-
 from telethon.sync import TelegramClient, events
-
 from channels import *
 
 if __name__ == "__main__":

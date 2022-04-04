@@ -19,35 +19,29 @@ parse it and send to trade with FTX REST API.
 ## TO DO
 ### capire come fare 1 OP con 1TP e 1SL
 ### capire come fare 1 OP con 3TP e 1SL
-### mandare operazioni di un canale offline
-### mandare operazioni di un canale online
-
-
-
-
-
 ### cambio di STRUTTURA DATI
 
     unavolta capito come fare le op in manuale
     e con degli script di prova, devi generare 
     una struttura dati che possa soddisfare tutti i canali.
 
-### schema movimenti soldi
+#### mandare operazioni di un canale offline
+#### mandare operazioni di un canale online
+
+
+<br>
+<br>
+<br>
+
+### movimenti soldi
 
     BP > N26 > CRYPTO.com > FTX.com
 
-### schema API keys
-
-    comemuovere le api
-
-### edo
+### marketing
     commerciabilita' del progetto
-    fai degli schemi  
-    mentire per farsi abilitare un conto con leva, quali sono i rischi
-
 
 ### Workflow of accounter.py
-listen db and exchange api for accounting and statistics
+listen sqlitedb/csv and exchange api for accounting and statistics
 
 <br>
 <br>
@@ -209,22 +203,7 @@ python3 accounter.py      # incoming mid April 2022
 <br>
 
 ## Installation
-1. **Generate Telegram API keys**
-  
-   Create Telegram API on the following website: my.telegram.org
-   <br> you need to generate **api_id** and **api_hash**
-
-<br>
-<br>
-
-2. **Generate FTX exchange API keys**
-    1) **Create FTX account**
-    2) **Deposit initial capital**
-    3) **Create FTX API**
-
-<br>
-
-3. **Select Telegram channels to follow on params.py**
+1. #### **Select Telegram channels to follow on params.py**
 
 ```
 CHANNEL_1 = 'Test1'
@@ -233,7 +212,7 @@ CHANNEL_2 = 'Test2'
 CHANNEL_20 = 'CryptoChannelBros'
 ```
 
-4. **Create configurations file .env** 
+2. #### **Create configurations file .env with your credentials** 
 
     Create .env file inside the project root folder <br> and insert your credential and API keys into it 
 
@@ -246,8 +225,9 @@ API_ID_FTX = 123456789
 API_HASH_FTX = "AAAAAAAAAAAAAAAAAAAAAA" 
 ```
 
+<br>
 
-5. **Install 3rd party libraries**
+3. #### **Install 3rd party libraries**
 
 Install vitrual environment
 ```bash
@@ -269,16 +249,24 @@ pip install -r requirements.txt
 <br>
 <br>
 
-## Telegram credentials
-### Telegram username and phone number
+
+### How to get credentials
+
+#### FTX exchange
+Generate FTX exchange API keys
+1) Create FTX account
+2) Deposit initial capital
+3) Create FTX API
+
+<br>
+
+### Telegram credentials
 Insert your credential as follow, use full phone number including + and country code. 
 ```
 USERNAME = "@my_username"
 PHONE_NUMBER = "+111111111111" 
-```
-
-### Telegram API keys on:    
-Visit the following website : my.telegram.org
+```    
+For Telegram API keys Visit the following website: my.telegram.org
 ``` python
 API_ID = 123456789
 API_HASH = "AAAAAAAAAAAAAAAAAAAAAA" 
