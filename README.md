@@ -51,11 +51,14 @@ parse it and send to trade with FTX REST API.
     ritorna un booleano che permette o meno
     di fare ordini su ftx
 
+🆗  estetics
+   fix imports and add simplicity
+
 ## 🔥 To Do : In progress
 
-reformat del progetto per esporre meno chiavi possibili
+🔥 reformat del progetto per esporre meno chiavi possibili
  
-
+🔥 rebalance delle posizioni, ognuna con il 3% del capitale
 
 
 
@@ -91,14 +94,12 @@ message_data = {
   }
 
 # EXAMPLE
-message_data={{
-        'side':'buy',
-        'symbol':'BTC-PERP',
-        'buy':{1 : '144.20' },
-        'sell':{1:'144.78',2:'145.35',3:'146.22'},
-        'stoploss':'139.87'
-        'leverage': 10 
-        
+
+base_operation_data_structure = {'side':'',
+                                'symbol':'',
+                                'take_profits':[],
+                                'entry_prices':[],
+                                'stop_losses':[]}
 
 operation_data= {
     market: str,
