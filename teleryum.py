@@ -1,13 +1,14 @@
 import sys
 import os
 from datetime import datetime, timezone, timedelta
-from dotenv import load_dotenv
 from pprint import pprint
-from termcolor import colored
 from copy import deepcopy
 
+from termcolor import colored
+from dotenv import load_dotenv
 from telethon.sync import TelegramClient, events
 import ccxt
+
 from FTXclient import FtxClient
 from FTXperpetuals import perpetuals
 from params import *
@@ -135,7 +136,7 @@ if __name__ == "__main__":
     async def trader_PUBLIC_TEST_CHANNEL(event):
         NEW_MESSAGE = event.message.message
         date = str(datetime.now(tzinfo))
-        print('\n',colored('NEW MESSAGE from : ','green'),CHANNEL_1,'\t', date[:-13],'\n\n',NEW_MESSAGE,'\n')
+        print('\n',colored('NEW MESSAGE from : ','green'),PUBLIC_TEST_CHANNEL,'\t', date[:-13],'\n\n',NEW_MESSAGE,'\n')
         op_data = message_parser_freecrypto_signals(new_message=NEW_MESSAGE)
         if op_data:
             if op_data['symbol'] in perpetuals:

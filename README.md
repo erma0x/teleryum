@@ -56,6 +56,8 @@ parse it and send to trade with FTX REST API.
 
 ## 🔥 To Do : In progress
 
+🔥 aggiungi freecrypto_signals in live
+
 🔥 reformat del progetto per esporre meno chiavi possibili
  
 🔥 rebalance delle posizioni, ognuna con il 3% del capitale
