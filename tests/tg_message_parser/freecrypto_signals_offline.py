@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from termcolor import colored
 from test_params import *
 
-# freecrypto_signals 
+# freecrypto_signals
 
 message1 = """
 #FOR 

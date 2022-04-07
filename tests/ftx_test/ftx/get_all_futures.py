@@ -15,4 +15,13 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-pprint(client.get_all_futures())
+order = client.get_all_futures()
+
+#pprint()
+
+list_of_perpetuals = []
+for i in order:
+    if '-PERP' in i['name']:
+        list_of_perpetuals.append(i['name'])
+
+pprint(list_of_perpetuals)     

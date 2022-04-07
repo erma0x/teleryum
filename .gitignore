@@ -1,4 +1,5 @@
 *.session
+*.session-journal
 .env
 TODO.md
 

@@ -16,19 +16,51 @@ parse it and send to trade with FTX REST API.
 4. if it is, exctract operation_data
 5. FTX client place order with operation_data 
 
-## TO DO
-### capire come fare 1 OP con 1TP e 1SL
-### capire come fare 1 OP con 3TP e 1SL
-### cambio di STRUTTURA DATI
+## Done
+🆗 capire come fare 1 OP con 1TP e 1SL
+
+    guarda tests/ccxt per gli esempi
+
+🆗 capire come fare 1 OP con 3TP e 1SL, 
+    
+    guarda tests/ccxt per gli esempi
+
+🆗 cambio di STRUTTURA DATI
 
     unavolta capito come fare le op in manuale
     e con degli script di prova, devi generare 
     una struttura dati che possa soddisfare tutti i canali.
 
-#### mandare operazioni di un canale offline
-#### mandare operazioni di un canale online
+🆗 FROM MESSAGE TO OP_DATA TO TRADE
+
+    mandare operazioni di un canale offline con
+    dei messaggi fax simili di un canale specifico.
+    Da un unico messaggio son passato a 
+    trasformarlo nella struttura 
+    dati univoca per turtti desiderata
+
+🆗  LIVE TEST message freecrypto_singal
+      ->  OP_DATA -> TRADE 
+
+    mandare operazioni di un canale online FAX SIMILE
+
+🆗  FTX TOKEN FILTER
+
+    capire se il token del segnale e' 
+    presente su ftx e farci una funzione che
+    ritorna un booleano che permette o meno
+    di fare ordini su ftx
+
+## 🔥 To Do : In progress
+
+reformat del progetto per esporre meno chiavi possibili
+ 
 
 
+
+
+<br>
+<br>
 <br>
 <br>
 <br>

@@ -15,7 +15,7 @@ FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
 
 client = FtxClient(api_key=FTX_API_ID_READONLY,api_secret=FTX_API_HASH_READONLY)
 
-pprint(client.get_market_info(market = 'ETHBEAR/USDT'))
+pprint(client.get_market_info(market = 'ETH-PERP'))
 
 
 
