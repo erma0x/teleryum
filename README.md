@@ -62,17 +62,16 @@ parse it and send to trade with FTX REST API.
  
 🔥 rebalance delle posizioni, ognuna con il 3% del capitale
 
+🔥 completa con parser e trader con tutti e 10 i canali
 
-
 <br>
 <br>
 <br>
 <br>
 <br>
 
-### movimenti soldi
-
-    BP > N26 > CRYPTO.com > FTX.com
+### money move
+BP > N26 > CRYPTO.com > FTX.com
 
 ### marketing
     commerciabilita' del progetto
@@ -90,9 +89,9 @@ message_data = {
     'symbol':'BTC/USDT',
     'side':'buy',
     'leverage':2,
-    'buy': {1:float,2: ...},
-    'sell':{1:float,2: ...}
-    'stoploss':{1:float,2: ...}
+    'buy': [],
+    'sell':[]
+    'stoploss':[]
   }
 
 # EXAMPLE
