@@ -1,0 +1,62 @@
+➡️ LONG ETHUSDT 
+
+❇️ Entry:2943 - 2840
+
+☑️ Target 1: 3087.00000000 
+
+☑️ Target 2: 3234.00000000 
+
+☑️ Target 3: 3381.00000000 
+
+⛔️ Stoploss: 2773.00000000  
+
+💫 Leverage : 10x
+
+
+
+➡️ SHORT LUNAUSDT 
+
+❇️ Entry: 90.5 - 96
+
+☑️ Target 1: 86.35500000
+
+☑️ Target 2: 81.81000000 
+
+☑️ Target 3: 77.26500000 
+
+⛔️ Stoploss: 101.44500000  
+
+💫 Leverage : 10x
+
+
+
+➡️ SHORT ICXUSDT 
+
+❇️ Entry: 0.96500000 - 1
+
+☑️ Target 1: 0.90820000 
+
+☑️ Target 2: 0.86040000 
+
+☑️ Target 3: 0.81260000
+
+⛔️ Stoploss: 1.05380000  
+
+💫 Leverage : 10x
+
+
+
+
+➡️ LONG SOLUSDT 
+
+❇️ Entry: 90.80000000 - 86.80
+
+☑️ Target 1: 95.34000000 
+
+☑️ Target 2: 99.88000000 
+
+☑️ Target 3: 104.42000000 
+
+⛔️ Stoploss: 84.26000000  
+
+💫 Leverage : 10x

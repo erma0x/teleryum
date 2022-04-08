@@ -15,8 +15,6 @@ CHANNEL_8 = 'cryptohopperofficial'
 CHANNEL_9 = 'altsignals'
 CHANNEL_10 = 'SignalsBlueChannel'
 
-
-
 LOGO = """
                 
                \.
@@ -35,7 +33,7 @@ LOGO = """
      ~`-----------------------------------------`~   
 """
 
-ONLINE = """
+NAME_SOFTWARE = """
        ___ ____ |    ____ ____ \_/ _  _ |\  /|
         |  |==  |___ |==  |--<  |  |__| | \/ |
 """

@@ -10,9 +10,8 @@ from telethon.sync import TelegramClient, events
 import ccxt
 
 from FTXclient import FtxClient
-from FTXperpetuals import perpetuals
+from FTXperpetuals import ftx_perpetuals
 from params import *
-
 
 
 def opposite(type_order):
@@ -26,9 +25,18 @@ def get_free_balance():
     # print('your free balance: '+str(round(order,2)))
     return order
 
+def print_op_data(op_data):
+    print('symbol         \t',op_data['symbol'])
+    print('trade side     \t',op_data['side'])
+    print('entry prices   \t',' '.join(op_data['entry_prices']))
+    print('take profits   \t',' '.join(op_data['take_profits']))
+    print('stop losses    \t',' '.join(op_data['stop_losses']))
+    print('leverage       \t',op_data['leverage'])
+
 
 def trader(order_data):
-    print('\n',colored('NEW OPERATION','red'),'\n',order_data)
+    print('\n💰',colored('NEW OPERATION','cyan'))
+    print_op_data(order_data)
     
     operation_position = 0.020 # 30 $ in ETH # TO 3% of my balance!
 
@@ -62,16 +70,6 @@ def trader(order_data):
                                                     price=float(stop_loss),
                                                     params={'triggerPrice':float(stop_loss),'reduceOnly':True })
 
-'''
-message_data = {
-    'symbol':'BTC/USDT',
-    'side':'buy',
-    'leverage':2,
-    'entry_prices': [],
-    'take_profits': [],
-    'stop_losses':[]
-  }
-'''
 def parser_CHANNEL_1(new_message):
     op_data = deepcopy(base_operation_data_structure)
 
@@ -83,7 +81,7 @@ def parser_CHANNEL_1(new_message):
 
         for row in new_message.split('\n'): 
             if '#' in row:
-                op_data['entry_prices'].append(row.split('@')[-1])
+                op_data['entry_prices'].append(row.split('@')[-1].replace(' ',''))
                 op_data['symbol'] = row.split(' ')[2].replace('#','').replace('/USDT','-PERP')
 
                 if 'Buy' in row:
@@ -92,10 +90,10 @@ def parser_CHANNEL_1(new_message):
                     op_data['side']='sell'
 
             if 'Tp' in row:
-                op_data['take_profits'].append(row.split(':')[-1])
+                op_data['take_profits'].append(row.split(':')[-1].replace(' ',''))
 
             if 'Stoploss' in row:
-                op_data['stop_losses'].append(row.split(':')[-1])
+                op_data['stop_losses'].append(row.split(':')[-1].replace(' ',''))
 
             if 'Leverage' in row:
                 op_data['leverage'] = row.split(' ')[-1].replace('x','')
@@ -143,30 +141,30 @@ def parser_CHANNEL_1(new_message):
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    USERNAME_TELEGRAM = os.getenv('USERNAME_TELEGRAM')
-    API_ID_TELEGRAM = os.getenv('API_ID_TELEGRAM')
-    API_HASH_TELEGRAM = os.getenv('API_HASH_TELEGRAM')
 
-    FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')
-    FTX_API_HASH_READONLY = os.getenv('FTX_API_HASH_READONLY')
-    RRFTID = os.getenv('RRFTID')
-    RRFTSEC = os.getenv('RRFTSEC')
+    load_dotenv()
+    TELEGRAM_USERNAME = os.getenv('TELEGRAM_USERNAME')
+    TELEGRAM_ID = os.getenv('TELEGRAM_ID')
+    TELEGRAM_HASH = os.getenv('TELEGRAM_HASH')
+
+    FTX_READONLY = os.getenv('FTX_READONLY')
+    FTX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
+    FTX_API_MAIN = os.getenv('FTX_API_MAIN')
+    FTX_API_MAIN_HASH = os.getenv('FTX_API_MAIN_HASH')
 
     exchange = ccxt.ftx({
-                    'apiKey': RRFTID,
-                    'secret': RRFTSEC,
+                    'apiKey': FTX_API_MAIN,
+                    'secret': FTX_API_MAIN_HASH,
                     'enableRateLimit': True,
                         })
 
-    client = TelegramClient(USERNAME_TELEGRAM, API_ID_TELEGRAM, API_HASH_TELEGRAM) 
+    client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
     client.start()
 
-    timezone_offset = +2.0  # Pacific Standard Time (UTC−08:00)
-    tzinfo = timezone(timedelta(hours=timezone_offset))
+    tzinfo = timezone(timedelta(hours=+2.0))
     now = datetime.now(tzinfo)
 
-    print(colored(LOGO,'cyan'),colored(ONLINE,'green'))
+    print(colored(LOGO,'cyan'),colored(NAME_SOFTWARE,'green'))
     print('\t\t',colored(now.strftime("%d/%m/%Y %H:%M:%S"),'cyan'))    
 
     # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
@@ -174,22 +172,22 @@ if __name__ == "__main__":
     async def trader_PUBLIC_TEST_CHANNEL(event):
         NEW_MESSAGE = event.message.message
         
-        print('\n',colored('NEW MESSAGE from : ','green'),PUBLIC_TEST_CHANNEL,'\t', str(datetime.now(tzinfo))[:-13],'\n\n',NEW_MESSAGE,'\n')
+        print('\n',colored('NEW MESSAGE from : ','green'),colored(PUBLIC_TEST_CHANNEL,'cyan'),'\t', str(datetime.now(tzinfo))[:-13],'\n\n',NEW_MESSAGE,'\n')
         op_data = parser_CHANNEL_1(new_message=NEW_MESSAGE)
         if op_data:
-            if op_data['symbol'] in perpetuals:
+            if op_data['symbol'] in ftx_perpetuals:
                 trader(order_data=op_data)
 
-    @client.on(events.NewMessage(chats=CHANNEL_1))
-    async def trader_PUBLIC_TEST_CHANNEL(event):
-        NEW_MESSAGE = event.message.message
+    # @client.on(events.NewMessage(chats=CHANNEL_1))
+    # async def trader_PUBLIC_TEST_CHANNEL(event):
+    #     NEW_MESSAGE = event.message.message
         
-        print('\n',colored('NEW MESSAGE from : ','green'),CHANNEL_1,'\t', str(datetime.now(tzinfo))[:-13],'\n\n',NEW_MESSAGE,'\n')
-        op_data = parser_CHANNEL_1(new_message=NEW_MESSAGE)
-        if op_data:
-            if op_data['symbol'] in perpetuals: # FTX EXCHANGE
-                #trader(order_data=op_data)
-                pass
+    #     print('\n',colored('NEW MESSAGE from : ','green'),CHANNEL_1,'\t', str(datetime.now(tzinfo))[:-13],'\n\n',NEW_MESSAGE,'\n')
+    #     op_data = parser_CHANNEL_1(new_message=NEW_MESSAGE)
+    #     if op_data:
+    #         if op_data['symbol'] in ftx_perpetuals: # FTX EXCHANGE
+    #             trader(order_data=op_data)
+    
     # CHANNEL_2 ==  
     # @client.on(events.NewMessage(chats=CHANNEL_2))
     # async def trader_PUBLIC_TEST_CHANNEL(event):
@@ -198,7 +196,7 @@ if __name__ == "__main__":
     #     print('\n',colored('NEW MESSAGE from : ','green'),CHANNEL_1,'\t', date[:-13],'\n\n',NEW_MESSAGE,'\n')
     #     op_data = message_parser_freecrypto_signals(new_message=NEW_MESSAGE)
     #     if op_data:
-    #         if op_data['symbol'] in perpetuals:
+    #         if op_data['symbol'] in ftx_perpetuals:
     #             trader(order_data=op_data)
 
     with client:
