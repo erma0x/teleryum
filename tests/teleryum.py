@@ -43,7 +43,7 @@ def trader(order_data):
     [ quantita_ultimo_TP/SL = 0.8 ]    
     
     """
-    print('\n💰',colored('NEW OPERATION','yellow'))
+    print('\n💰',colored('NEW OPERATION','cyan'))
     print_op_data(order_data)
     
     operation_position = 0.020 # 30 $ in ETH # TO 3% of my balance!

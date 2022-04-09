@@ -1,4 +1,4 @@
-perpetuals = ['1INCH-PERP',
+ftx_perpetuals = ['1INCH-PERP',
  'AAVE-PERP',
  'ADA-PERP',
  'AGLD-PERP',
