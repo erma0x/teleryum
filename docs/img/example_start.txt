@@ -1,15 +1,3 @@
-base_operation_data_structure = {'side':'',
-                                'leverage':'',
-                                'symbol':'',
-                                'take_profits':[],
-                                'entry_prices':[],
-                                'stop_losses':[]}
-# EXAMPLE
-# {'side': 'buy', 'symbol': 'ETH-PERP', 'take_profits': ['3400', '3300','3200'], 'entry_prices': ['2900', '3000'], 'stop_losses': ['2000','1900']}
-
-LOGO = """
-                
-               \.
                 \.
                  \%,     ,'     , ,.
                   \%\,';/J,";";";;,,.
@@ -23,6 +11,29 @@ LOGO = """
    ~~ :           `~` `~`  `      ``;,  ``;" ';, : ~~
     ~~:                             `'   `'  `'  :~~
      ~`-----------------------------------------`~   
-"""
+ 
+       ___ ____ |    ____ ____ \_/ _  _ |\  /|
+        |  |==  |___ |==  |--<  |  |__| | \/ |
 
-NAME_SOFTWARE = """SERVER"""
+                 09/04/2022 17:24:07
+
+  NEW SIGNAL   test_channel_pubblico_24991204    2022-04-09 17:24:18 
+
+ 💫 Binance Futures Signal 💫
+Buy/Long - #ETH/USDT @ 2910
+🎯 Tp 1: 3500
+🎯 Tp 2: 3550
+🎯 Tp 3: 3600
+❌ Stoploss: 2550
+Leverage - upto 10x
+By (@SN_crypto)
+Note: This is early signal so enter only when entry price matches market price 
+
+OPERATION DATA
+symbol           ETH-PERP
+trade side       buy
+entry prices     2910
+take profits     3500 3550 3600
+stop losses      2550
+leverage         10
+

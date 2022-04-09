@@ -43,7 +43,7 @@ def trader(order_data):
     [ quantita_ultimo_TP/SL = 0.8 ]    
     
     """
-    print('\n💰',colored('NEW OPERATION','yellow'))
+    print(colored('OPERATION DATA','cyan'))
     print_op_data(order_data)
     
     operation_position = 0.020 # 30 $ in ETH # TO 3% of my balance!
@@ -175,10 +175,8 @@ if __name__ == "__main__":
     tzinfo = timezone(timedelta(hours=+2.0))
     now = datetime.now(tzinfo)
 
-    print(colored(LOGO,'cyan'),colored(NAME_SOFTWARE,'green'))
-    print('\t\t',colored(now.strftime("%d/%m/%Y %H:%M:%S"),'cyan'))    
-
-
+    print(colored(LOGO,'cyan'),colored('\t t𝚎𝚕𝚎𝚛𝚢𝚞𝚖 ','cyan'), colored("[ online ]","green"),now.strftime("%H:%M:%S %d/%m/%Y"))
+    
     # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
     @client.on(events.NewMessage(chats=PUBLIC_TEST_CHANNEL))
     async def trader_PUBLIC_TEST_CHANNEL(event):
