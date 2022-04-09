@@ -7,6 +7,9 @@ base_operation_data_structure = {'side':'',
 # EXAMPLE
 # {'side': 'buy', 'symbol': 'ETH-PERP', 'take_profits': ['3400', '3300','3200'], 'entry_prices': ['2900', '3000'], 'stop_losses': ['2000','1900']}
 
+tzinfo = timezone(timedelta(hours=+2.0))
+
+
 LOGO = """
                 
                \.

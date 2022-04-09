@@ -14,16 +14,9 @@ from FTXperpetuals import ftx_perpetuals
 from params import *
 from channels import *
 
-def opposite(type_order):
-    if type_order=='buy':
-        return 'sell'
-    return 'buy'
-
-def get_free_balance():
-    client = FtxClient(api_key=FTX_READONLY,api_secret=FTX_READONLY_HASH)
-    order = float(client.get_balances()[0]['free'])
-    #print('YOUR FREE BALANCE: '+str(round(order,2)))
-    return order
+def print_start():
+    now = datetime.now(tzinfo)
+    print(colored(LOGO,'cyan'), colored("\tteleryum server ","cyan"),colored("online","green"),now.strftime("%d/%m/%Y %H:%M:%S"),'\n\n')
 
 def print_op_data(op_data):
     print('symbol         \t',op_data['symbol'])
@@ -36,17 +29,47 @@ def print_op_data(op_data):
 def print_message(message,channel):
     print('\n',colored(' NEW SIGNAL  ','green'),colored(channel,'cyan'),'\t', str(datetime.now(tzinfo))[:-13],'\n\n',message,'\n')
 
+def opposite(type_order):
+    if type_order=='buy':
+        return 'sell'
+    return 'buy'
+
+def get_free_balance():
+    client = FtxClient(api_key=FTX_READONLY,api_secret=FTX_READONLY_HASH)
+    order = float(client.get_balances()[0]['free'])
+    #print('YOUR FREE BALANCE: '+str(round(order,2)))
+    return order
+
+def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
+    trigger_quantities = []
+    single_trigger_quantity = round(entry_quantity/len(trigger_prices))
+    n_triggers = len(trigger_prices)
+    trigger_quantities = [single_trigger_quantity for i in trigger_prices][:-1]
+    last_trigger_quantity = entry_quantity % ( single_trigger_quantity * (n_triggers-1) )
+    trigger_quantities.append(last_trigger_quantity)
+    return(trigger_quantities)   
+
+
 def trader(order_data):
-    """
-    BUG n_tp = 3 quantita_entry = 2.0 quantita_singolo_TP = 0.6
-    quantita_ultimo_TP/SL = quantita_entry - quantita_singolo_TP * n_TP
-    [ quantita_ultimo_TP/SL = 0.8 ]    
-    
-    """
+
     print(colored('OPERATION DATA','cyan'))
     print_op_data(order_data)
     
-    operation_position = 0.020 # 30 $ in ETH # TO 3% of my balance!
+    operation_position = 0.020 # 30 $ in ETH # TO 3% of my balance! # initial_capital = 100
+
+    
+    columns = ['entry_prices','take_profits','stop_losses']
+
+    for col in columns:
+        for i in range(len(order_data[col])):
+            order_data[col][i] = float(order_data[col][i])
+
+    if order_data['side'] == 'buy':
+        order_data['take_profits'] = sorted(order_data['take_profits'])
+        order_data['stop_losses'] = sorted(order_data['stop_losses'],reverse=True)
+    else:
+        order_data['take_profits'] = sorted(order_data['take_profits'],reverse=True)
+        order_data['stop_losses'] = sorted(order_data['stop_losses'])
 
     n_entry_prices = len(order_data['entry_prices'])
     n_take_profits = len(order_data['take_profits'])
@@ -62,23 +85,25 @@ def trader(order_data):
         entry_order = exchange.create_limit_order(symbol=order_data['symbol'],
                                                  side=order_data['side'],
                                                  amount=single_position,
-                                                 price=float(entry_price))
+                                                 price=entry_price)
 
-        for take_profit in order_data['take_profits']:
+        trigger_quantities_TP = balance_trigger_orders_quantity(order_data['take_profits'], single_position)
+        for index in range(len(order_data['take_profits'])):
             take_profit_order = exchange.create_order(symbol=order_data['symbol'],
                                                     type='takeProfit',
                                                     side=opposite(order_data['side']),
-                                                    amount=round( single_position/n_take_profits ,8),
-                                                    price=float(take_profit),
-                                                    params={'triggerPrice':float(take_profit),'reduceOnly':True })
+                                                    amount=round( trigger_quantities_TP[index] ,8),
+                                                    price=order_data['take_profits'][index],
+                                                    params={'triggerPrice':order_data['take_profits'][index],'reduceOnly':True })
 
-        for stop_loss in order_data['stop_losses']:
+        trigger_quantities_SL = balance_trigger_orders_quantity(order_data['stop_losses'], single_position)
+        for index in order_data['stop_losses']:
             stop_loss_order = exchange.create_order(symbol=order_data['symbol'],
                                                     type='stop',
                                                     side=opposite(order_data['side']),
-                                                    amount=round( single_position/n_stop_losses ,8),
-                                                    price=float(stop_loss),
-                                                    params={'triggerPrice':float(stop_loss),'reduceOnly':True })
+                                                    amount=round( trigger_quantities_SL[index] ,8),
+                                                    price=order_data['stop_losses'][index],
+                                                    params={'triggerPrice':order_data['stop_losses'][index],'reduceOnly':True })
 
 def parser_CHANNEL_1(new_message):
     op_data = deepcopy(base_operation_data_structure)
@@ -115,7 +140,7 @@ def parser_CHANNEL_1(new_message):
             if pattern not in new_message:
                 return None
 
-        for row in new_message.split('\n'): # text messages
+        for row in new_message.split('\n'):
             if '#' in row:
                 op_data['symbol'] = row[1:].replace(' ','')+'-PERP'
 
@@ -172,11 +197,8 @@ if __name__ == "__main__":
     client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
     client.start()
 
-    tzinfo = timezone(timedelta(hours=+2.0))
-    now = datetime.now(tzinfo)
+    print_start()
 
-    print(colored(LOGO,'cyan'),colored('\t t𝚎𝚕𝚎𝚛𝚢𝚞𝚖 ','cyan'), colored("[ online ]","green"),now.strftime("%H:%M:%S %d/%m/%Y"))
-    
     # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
     @client.on(events.NewMessage(chats=PUBLIC_TEST_CHANNEL))
     async def trader_PUBLIC_TEST_CHANNEL(event):
