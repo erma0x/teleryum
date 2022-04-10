@@ -239,15 +239,15 @@ if __name__ == "__main__":
                 print_message( message = NEW_MESSAGE , channel = PUBLIC_TEST_CHANNEL )
                 trader( order_data = op_data )
 
-    # @client.on(events.NewMessage(chats=CHANNEL_1))
-    # async def trader_PUBLIC_TEST_CHANNEL(event):
-    #     NEW_MESSAGE = event.message.message
-        
-    #     print('\n',colored('NEW MESSAGE from : ','green'),CHANNEL_1,'\t', str(datetime.now(tzinfo))[:-13],'\n\n',NEW_MESSAGE,'\n')
-    #     op_data = parser_CHANNEL_1(new_message=NEW_MESSAGE)
-    #     if op_data:
-    #         if op_data['symbol'] in ftx_perpetuals: # FTX EXCHANGE
-    #             trader(order_data=op_data)
+    # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
+    @client.on(events.NewMessage( chats = CHANNEL_1 ))
+    async def trader_CHANNEL_1( event ):
+        NEW_MESSAGE = event.message.message
+        op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
+        if op_data:
+            if op_data['symbol'] in ftx_perpetuals :
+                print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+                trader( order_data = op_data )
     
 
     with client:
