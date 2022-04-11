@@ -14,7 +14,7 @@ from channels import *
 
 def print_start():
     now = datetime.now(tzinfo)
-    print(colored(LOGO,'cyan'), colored("\tteleryum server ","cyan"),colored("online","green"),now.strftime("%d/%m/%Y %H:%M:%S"),'\n\n')
+    print(colored(LOGO,'cyan'), colored("\tServer","cyan"),colored("Online","green"),now.strftime("%d/%m/%Y %H:%M:%S"),'\n\n')
 
 def print_op_data(op_data):
     print(colored('OPERATION DATA','cyan'))
@@ -25,10 +25,8 @@ def print_op_data(op_data):
     print('stop losses    \t',' '.join(op_data['stop_losses']))
     print('leverage       \t',op_data['leverage'])
 
-
 def print_message(message,channel):
     print('\n',colored('NEW SIGNAL','green'),colored(channel,'cyan'),'\t', str(datetime.now(tzinfo))[:-13],'\n\n',message,'\n')
-
 
 def opposite(type_order):
     if type_order=='buy':
@@ -75,7 +73,7 @@ def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
 
 def trader(order_data):
 
-    print_op_data(order_data)
+    # print_op_data(order_data)
 
     columns = ['entry_prices','take_profits','stop_losses']
     for col in columns:
@@ -94,48 +92,47 @@ def trader(order_data):
     n_stop_losses = len(order_data['stop_losses'])
     
     amount_usd_position = get_amount_position_usdt()
-    print('position in usdt $ ',amount_usd_position)
+    # print('position in usdt $ ',amount_usd_position)
+    # print('REAL LEVERAGE: 2 ')
+    # print('ORDERS SENDED TO THE EXCHANGE')
+
+    if get_free_balance_FTX() < 1.2 * amount_usd_position:
+        return None
 
     for index in range(len(order_data['entry_prices'])): 
-        
-        if get_free_balance_FTX() > 1.2 * amount_usd_position:
-            
-            entry_price = order_data['entry_prices'][index]
-            amount_token_position = round( amount_usd_position / n_entry_prices / entry_price ,8 )
-            print('entry price ',entry_price)
-            print('amount token position ',amount_token_position)
+                    
+        entry_price = order_data['entry_prices'][index]
+        amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
 
-            entry_order = exchange.create_limit_order(symbol=order_data['symbol'],
-                                                    side = order_data['side'],
-                                                    amount = amount_token_position,
-                                                    price = entry_price  )
+        entry_order = exchange.create_limit_order(symbol=order_data['symbol'],
+                                                side = order_data['side'],
+                                                amount = amount_token_position,
+                                                price = entry_price  )
 
+        take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)
 
-            take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)
-            print('take profits token quantities',take_profit_quantities)
+        for index in range(len(order_data['take_profits'])):
+            take_profit_order = exchange.create_order(symbol=order_data['symbol'],
+                                                    type = 'takeProfit',
+                                                    side = opposite(order_data['side']),
+                                                    amount = take_profit_quantities[index] ,
+                                                    price = order_data['take_profits'][index],
+                                                    params = {'triggerPrice':order_data['take_profits'][index],'reduceOnly':True })
 
-            for index in range(len(order_data['take_profits'])):
-                take_profit_order = exchange.create_order(symbol=order_data['symbol'],
-                                                        type = 'takeProfit',
-                                                        side = opposite(order_data['side']),
-                                                        amount = take_profit_quantities[index] ,
-                                                        price = order_data['take_profits'][index],
-                                                        params = {'triggerPrice':order_data['take_profits'][index],'reduceOnly':True })
+        stop_loss_quantities = balance_trigger_orders_quantity(order_data['stop_losses'], amount_token_position)
 
-            stop_loss_quantities = balance_trigger_orders_quantity(order_data['stop_losses'], amount_token_position)
-            print('stop losses token quantities',stop_loss_quantities)
+        for index in range(len(order_data['stop_losses'])):
+            stop_loss_order = exchange.create_order(symbol=order_data['symbol'],
+                                                    type='stop',
+                                                    side=opposite(order_data['side']),
+                                                    amount= stop_loss_quantities[index],
+                                                    price=order_data['stop_losses'][index],
+                                                    params={'triggerPrice':order_data['stop_losses'][index],'reduceOnly':True })
 
-            for index in range(len(order_data['stop_losses'])):
-                stop_loss_order = exchange.create_order(symbol=order_data['symbol'],
-                                                        type='stop',
-                                                        side=opposite(order_data['side']),
-                                                        amount= stop_loss_quantities[index],
-                                                        price=order_data['stop_losses'][index],
-                                                        params={'triggerPrice':order_data['stop_losses'][index],'reduceOnly':True })
-
-    print('REAL LEVERAGE: 2 ')
-    print('ORDERS SENDED TO THE EXCHANGE')
-
+        # print('take profits token quantities',take_profit_quantities)
+        # print('stop losses token quantities',stop_loss_quantities)
+        # print('entry price ',entry_price)
+        # print('amount token position ',amount_token_position)
 
 
 def parser_CHANNEL_1(new_message):
@@ -211,6 +208,9 @@ def parser_CHANNEL_1(new_message):
 
 if __name__ == "__main__":
 
+    tzinfo = timezone(timedelta(hours=+2.0))
+    print_start()
+
     load_dotenv()
     TELEGRAM_USERNAME = os.getenv('TELEGRAM_USERNAME')
     TELEGRAM_ID = os.getenv('TELEGRAM_ID')
@@ -230,8 +230,16 @@ if __name__ == "__main__":
     client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
     client.start()
 
-    tzinfo = timezone(timedelta(hours=+2.0))
-    print_start()
+    # OKEX_READONLY = os.getenv('FTX_READONLY')
+    # OKEX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
+    # OKEX_API_MAIN = os.getenv('FTX_API_MAIN')
+    # OKEX_API_MAIN_HASH = os.getenv('FTX_API_MAIN_HASH')
+
+    # exchange_OKEX = ccxt.okex({
+    #             'apiKey': OKEX_API_MAIN,
+    #             'secret': OKEX_API_MAIN_HASH,
+    #             'enableRateLimit': True,
+    #                 })
 
     # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
     @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
@@ -240,19 +248,25 @@ if __name__ == "__main__":
         op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
-                print_message( message = NEW_MESSAGE , channel = PUBLIC_TEST_CHANNEL )
+                # print_message( message = NEW_MESSAGE , channel = PUBLIC_TEST_CHANNEL )
                 trader( order_data = op_data )
 
-    # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
-    @client.on(events.NewMessage( chats = CHANNEL_1 ))
-    async def trader_CHANNEL_1( event ):
-        NEW_MESSAGE = event.message.message
-        op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
-        if op_data:
-            if op_data['symbol'] in ftx_perpetuals :
-                print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-                #trader( order_data = op_data )
+    # t.me/freecrypto_signals 
+    # @client.on(events.NewMessage( chats = CHANNEL_1 ))
+    # async def trader_CHANNEL_1( event ):
+    #     NEW_MESSAGE = event.message.message
+    #     op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
+    #     if op_data:
+    #         if op_data['symbol'] in ftx_perpetuals :
+    #             print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+    #             trader( order_data = op_data )
     
 
-    with client:
-        client.run_until_disconnected()
+    while True:
+
+        if client.is_connected():
+            with client:
+                client.run_until_disconnected()
+        else:
+            client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
+            client.start()
