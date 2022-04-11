@@ -73,7 +73,7 @@ def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
 
 def trader(order_data):
 
-    # print_op_data(order_data)
+    print_op_data(order_data)
 
     columns = ['entry_prices','take_profits','stop_losses']
     for col in columns:
@@ -147,7 +147,10 @@ def parser_CHANNEL_1(new_message):
 
         for row in new_message.split('\n'): 
             if '#' in row:
-                op_data['entry_prices'].append(row.split('@')[-1].replace(' ',''))
+
+                entry_prices = row.split('@')[-1].replace(' ','')
+                op_data['entry_prices'].append(entry_prices)
+
                 op_data['symbol'] = row.split(' ')[2].replace('#','').replace('/USDT','-PERP')
 
                 if 'Buy' in row:
@@ -209,7 +212,7 @@ def parser_CHANNEL_1(new_message):
 if __name__ == "__main__":
 
     tzinfo = timezone(timedelta(hours=+2.0))
-    print_start()
+    #print_start()
 
     load_dotenv()
     TELEGRAM_USERNAME = os.getenv('TELEGRAM_USERNAME')
@@ -249,7 +252,10 @@ if __name__ == "__main__":
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
                 # print_message( message = NEW_MESSAGE , channel = PUBLIC_TEST_CHANNEL )
-                trader( order_data = op_data )
+                try:
+                    trader( order_data = op_data )
+                except:
+                    print('ERROR')
 
     # t.me/freecrypto_signals 
     # @client.on(events.NewMessage( chats = CHANNEL_1 ))
@@ -263,7 +269,6 @@ if __name__ == "__main__":
     
 
     while True:
-
         if client.is_connected():
             with client:
                 client.run_until_disconnected()
