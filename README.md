@@ -9,6 +9,9 @@ Telegram message scanner and automated trader  <br>
 ## How to Run 
 ```bash
 source ./venv/bin/activate
+
+nohup python3 teleryum.py > /home/user/teleryum/logs.out &
+# OR
 python3 teleryum.py            
 ```
 

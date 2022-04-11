@@ -62,16 +62,19 @@ def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
     n_triggers = len(trigger_prices)
 
     if n_triggers > 1:
-        trigger_quantities = [single_trigger_quantity for i in trigger_prices][:-1]
-        last_trigger_quantity = entry_quantity % ( single_trigger_quantity * (n_triggers-1) )
-        trigger_quantities.append(last_trigger_quantity)
-
+        if 0 != entry_quantity % ( single_trigger_quantity * (n_triggers-1) ):
+            trigger_quantities = [single_trigger_quantity for i in trigger_prices][:-1]
+            last_trigger_quantity = entry_quantity % ( single_trigger_quantity * (n_triggers-1) ) + single_trigger_quantity
+            trigger_quantities.append(last_trigger_quantity)
+        else:
+            trigger_quantities = [single_trigger_quantity for i in trigger_prices]
+            
     else:
         trigger_quantities.append(entry_quantity)
 
     return trigger_quantities
 
-def trader(order_data):
+def trader(order_data,exchange):
 
     print_op_data(order_data)
 
@@ -92,47 +95,44 @@ def trader(order_data):
     n_stop_losses = len(order_data['stop_losses'])
     
     amount_usd_position = get_amount_position_usdt()
-    # print('position in usdt $ ',amount_usd_position)
-    # print('REAL LEVERAGE: 2 ')
-    # print('ORDERS SENDED TO THE EXCHANGE')
+    print('position in usdt $ ',amount_usd_position)
+    print('real LEVERAGE FTX: 2 ')
 
     if get_free_balance_FTX() < 1.2 * amount_usd_position:
         return None
 
-    for index in range(len(order_data['entry_prices'])): 
-                    
-        entry_price = order_data['entry_prices'][index]
-        amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
+    for i in range(len(order_data['entry_prices'])): 
 
-        entry_order = exchange.create_limit_order(symbol=order_data['symbol'],
+        entry_price = deepcopy(order_data['entry_prices'][i])
+                    
+        amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
+        print('amount_token_position ',amount_token_position)
+        entry_order = exchange.create_limit_order(symbol = order_data['symbol'],
                                                 side = order_data['side'],
                                                 amount = amount_token_position,
                                                 price = entry_price  )
 
         take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)
+        print('take_profit_quantities ',take_profit_quantities)
 
-        for index in range(len(order_data['take_profits'])):
-            take_profit_order = exchange.create_order(symbol=order_data['symbol'],
+        for j in range(len(order_data['take_profits'])):
+            take_profit_order = exchange.create_order(symbol = order_data['symbol'],
                                                     type = 'takeProfit',
                                                     side = opposite(order_data['side']),
-                                                    amount = take_profit_quantities[index] ,
-                                                    price = order_data['take_profits'][index],
-                                                    params = {'triggerPrice':order_data['take_profits'][index],'reduceOnly':True })
+                                                    amount = take_profit_quantities[j] ,
+                                                    price = order_data['take_profits'][j],
+                                                    params = {'triggerPrice':order_data['take_profits'][j],'reduceOnly':True })
 
         stop_loss_quantities = balance_trigger_orders_quantity(order_data['stop_losses'], amount_token_position)
+        print('stop_loss_quantities ',stop_loss_quantities)
 
-        for index in range(len(order_data['stop_losses'])):
-            stop_loss_order = exchange.create_order(symbol=order_data['symbol'],
-                                                    type='stop',
-                                                    side=opposite(order_data['side']),
-                                                    amount= stop_loss_quantities[index],
-                                                    price=order_data['stop_losses'][index],
-                                                    params={'triggerPrice':order_data['stop_losses'][index],'reduceOnly':True })
-
-        # print('take profits token quantities',take_profit_quantities)
-        # print('stop losses token quantities',stop_loss_quantities)
-        # print('entry price ',entry_price)
-        # print('amount token position ',amount_token_position)
+        for k in range(len(order_data['stop_losses'])):
+            stop_loss_order = exchange.create_order(symbol = order_data['symbol'],
+                                                    type = 'stop',
+                                                    side = opposite(order_data['side']),
+                                                    amount = stop_loss_quantities[k],
+                                                    price = order_data['stop_losses'][k],
+                                                    params = {'triggerPrice':order_data['stop_losses'][k],'reduceOnly':True })
 
 
 def parser_CHANNEL_1(new_message):
@@ -190,6 +190,7 @@ def parser_CHANNEL_1(new_message):
                         op_data['entry_prices'].append(temp[n])
                 else:
                     op_data['entry_prices'].append(row.split()[1])
+
             if 'Sell' in row:
                 if '-' in row.split()[1]:
                     temp=row.split()[1].split('-')
@@ -212,7 +213,7 @@ def parser_CHANNEL_1(new_message):
 if __name__ == "__main__":
 
     tzinfo = timezone(timedelta(hours=+2.0))
-    #print_start()
+    print_start()
 
     load_dotenv()
     TELEGRAM_USERNAME = os.getenv('TELEGRAM_USERNAME')
@@ -224,9 +225,31 @@ if __name__ == "__main__":
     FTX_API_MAIN = os.getenv('FTX_API_MAIN')
     FTX_API_MAIN_HASH = os.getenv('FTX_API_MAIN_HASH')
 
-    exchange = ccxt.ftx({
+    FTX_READONLY_C1 = os.getenv('FTX_READONLY_C1')
+    FTX_READONLY_C1_HASH = os.getenv('FTX_READONLY_C1_HASH')
+    FTX_C1 = os.getenv('FTX_C1')
+    FTX_C1_HASH = os.getenv('FTX_C1_HASH')
+
+    FTX_READONLY_C2 = os.getenv('FTX_READONLY_C2')
+    FTX_READONLY_C2_HASH = os.getenv('FTX_READONLY_C2_HASH')
+    FTX_C2 = os.getenv('FTX_C2')
+    FTX_C2_HASH = os.getenv('FTX_C2_HASH')
+
+    ftx_main = ccxt.ftx({
                     'apiKey': FTX_API_MAIN,
                     'secret': FTX_API_MAIN_HASH,
+                    'enableRateLimit': True,
+                        })
+
+    ftx_c1 = ccxt.ftx({
+                    'apiKey': FTX_C1,
+                    'secret': FTX_C1_HASH,
+                    'enableRateLimit': True,
+                        })
+
+    ftx_c2 = ccxt.ftx({
+                    'apiKey': FTX_C2,
+                    'secret': FTX_C2_HASH,
                     'enableRateLimit': True,
                         })
 
@@ -251,23 +274,20 @@ if __name__ == "__main__":
         op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
-                # print_message( message = NEW_MESSAGE , channel = PUBLIC_TEST_CHANNEL )
-                try:
-                    trader( order_data = op_data )
-                except:
-                    print('ERROR')
+                print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
+                trader( order_data = op_data ,exchange = ftx_c1)
 
-    # t.me/freecrypto_signals 
+
+    # # t.me/freecrypto_signals 
     # @client.on(events.NewMessage( chats = CHANNEL_1 ))
     # async def trader_CHANNEL_1( event ):
     #     NEW_MESSAGE = event.message.message
     #     op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
     #     if op_data:
     #         if op_data['symbol'] in ftx_perpetuals :
-    #             print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+    #             # print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
     #             trader( order_data = op_data )
     
-
     while True:
         if client.is_connected():
             with client:
