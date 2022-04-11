@@ -4,7 +4,7 @@ Telegram message scanner and automated trader  <br>
 
  1. Scan incoming messages from telegram
  2. Find out if the new message is a signal
- 3. If it is a signal, parse it and send it as operation to FTX.com with ccxt library
+ 3. If it is a signal, parse it and send it as operation to okex.com or ftx.com with ccxt open source library
 
 ## How to Run 
 ```bash

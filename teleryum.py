@@ -52,29 +52,30 @@ def get_amount_position_usdt():
     if total_balance > 300:
         amount_position_usdt =  total_balance * 0.03   # get 3% of the position
     elif total_balance > 200:
-        amount_position_in_usdt =  total_balance * 0.1    # get 10% of the position
+        amount_usd_position =  total_balance * 0.1    # get 10% of the position
     else:
-        amount_position_in_usdt = 20
+        amount_usd_position = 30
 
-    return amount_position_in_usdt
+    return amount_usd_position
 
 def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
     trigger_quantities = []
-    single_trigger_quantity = entry_quantity/len(trigger_prices)
+    single_trigger_quantity = round( entry_quantity/len(trigger_prices) ,8)
     n_triggers = len(trigger_prices)
 
     if n_triggers > 1:
         trigger_quantities = [single_trigger_quantity for i in trigger_prices][:-1]
         last_trigger_quantity = entry_quantity % ( single_trigger_quantity * (n_triggers-1) )
-    else:
-        last_trigger_quantity = entry_quantity
+        trigger_quantities.append(last_trigger_quantity)
 
-    trigger_quantities.append(last_trigger_quantity)
+    else:
+        trigger_quantities.append(entry_quantity)
+
     return trigger_quantities
 
 def trader(order_data):
 
-    print_op_data(order_data) # new operation from telegram
+    print_op_data(order_data)
 
     columns = ['entry_prices','take_profits','stop_losses']
     for col in columns:
@@ -92,43 +93,46 @@ def trader(order_data):
     n_take_profits = len(order_data['take_profits'])
     n_stop_losses = len(order_data['stop_losses'])
     
-    amount_position_in_usdt = get_amount_position_usdt()
-    print('position in usdt $ ',amount_position_in_usdt)
+    amount_usd_position = get_amount_position_usdt()
+    print('position in usdt $ ',amount_usd_position)
 
-    for entry_price in order_data['entry_prices']:
+    for index in range(len(order_data['entry_prices'])): 
         
-        if get_free_balance_FTX() >= amount_position_in_usdt:
-
-            amount_position_in_token = round( amount_position_in_usdt / n_entry_prices / entry_price ,8 )
-            print('entry price ',entry_price,' amount position token ',amount_position_in_token)
+        if get_free_balance_FTX() > 1.2 * amount_usd_position:
+            
+            entry_price = order_data['entry_prices'][index]
+            amount_token_position = round( amount_usd_position / n_entry_prices / entry_price ,8 )
+            print('entry price ',entry_price)
+            print('amount token position ',amount_token_position)
 
             entry_order = exchange.create_limit_order(symbol=order_data['symbol'],
                                                     side = order_data['side'],
-                                                    amount = amount_position_in_token,
-                                                    price = entry_price )
+                                                    amount = amount_token_position,
+                                                    price = entry_price  )
 
 
-            trigger_quantities_TP = balance_trigger_orders_quantity(order_data['take_profits'], amount_position_in_token)
-            
+            take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)
+            print('take profits token quantities',take_profit_quantities)
+
             for index in range(len(order_data['take_profits'])):
                 take_profit_order = exchange.create_order(symbol=order_data['symbol'],
-                                                        type='takeProfit',
-                                                        side=opposite(order_data['side']),
-                                                        amount= trigger_quantities_TP[index] ,
-                                                        price=order_data['take_profits'][index],
-                                                        params={'triggerPrice':order_data['take_profits'][index],'reduceOnly':True })
+                                                        type = 'takeProfit',
+                                                        side = opposite(order_data['side']),
+                                                        amount = take_profit_quantities[index] ,
+                                                        price = order_data['take_profits'][index],
+                                                        params = {'triggerPrice':order_data['take_profits'][index],'reduceOnly':True })
 
-            trigger_quantities_SL = balance_trigger_orders_quantity(order_data['stop_losses'], amount_position_in_token)
+            stop_loss_quantities = balance_trigger_orders_quantity(order_data['stop_losses'], amount_token_position)
+            print('stop losses token quantities',stop_loss_quantities)
+
             for index in range(len(order_data['stop_losses'])):
                 stop_loss_order = exchange.create_order(symbol=order_data['symbol'],
                                                         type='stop',
                                                         side=opposite(order_data['side']),
-                                                        amount= trigger_quantities_SL[index],
+                                                        amount= stop_loss_quantities[index],
                                                         price=order_data['stop_losses'][index],
                                                         params={'triggerPrice':order_data['stop_losses'][index],'reduceOnly':True })
 
-            print('take profits token quantities',trigger_quantities_TP)
-            print('stop losses token quantities',trigger_quantities_SL)
     print('REAL LEVERAGE: 2 ')
     print('ORDERS SENDED TO THE EXCHANGE')
 
@@ -247,7 +251,7 @@ if __name__ == "__main__":
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
                 print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-                trader( order_data = op_data )
+                #trader( order_data = op_data )
     
 
     with client:
