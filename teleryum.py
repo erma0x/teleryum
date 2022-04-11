@@ -52,7 +52,7 @@ def get_amount_position_usdt():
     elif total_balance > 200:
         amount_usd_position =  total_balance * 0.1    # get 10% of the position
     else:
-        amount_usd_position = 30
+        amount_usd_position = 20
 
     return amount_usd_position
 
@@ -74,7 +74,7 @@ def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
 
     return trigger_quantities
 
-def trader(order_data,exchange):
+def trader(order_data, exchange):
 
     print_op_data(order_data)
 
@@ -96,15 +96,15 @@ def trader(order_data,exchange):
     
     amount_usd_position = get_amount_position_usdt()
     print('position in usdt $ ',amount_usd_position)
-    print('real LEVERAGE FTX: 2 ')
+    print('real LEVERAGE on FTX: 2 ')
 
     if get_free_balance_FTX() < 1.2 * amount_usd_position:
         return None
 
     for i in range(len(order_data['entry_prices'])): 
-
+        
         entry_price = deepcopy(order_data['entry_prices'][i])
-                    
+
         amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
         print('amount_token_position ',amount_token_position)
         entry_order = exchange.create_limit_order(symbol = order_data['symbol'],
@@ -242,12 +242,18 @@ if __name__ == "__main__":
                         })
 
     ftx_c1 = ccxt.ftx({
+                    'headers': {
+                    'FTX-SUBACCOUNT': 'c1',
+                    },
                     'apiKey': FTX_C1,
                     'secret': FTX_C1_HASH,
                     'enableRateLimit': True,
                         })
 
     ftx_c2 = ccxt.ftx({
+                    'headers': {
+                    'FTX-SUBACCOUNT': 'c2',
+                    },
                     'apiKey': FTX_C2,
                     'secret': FTX_C2_HASH,
                     'enableRateLimit': True,
@@ -275,7 +281,7 @@ if __name__ == "__main__":
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
                 print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
-                trader( order_data = op_data ,exchange = ftx_c1)
+                trader( order_data = op_data , exchange = ftx_c2)
 
 
     # # t.me/freecrypto_signals 
