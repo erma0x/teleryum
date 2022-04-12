@@ -113,7 +113,7 @@ def get_free_balance_FTX():
     return order
 
 def get_total_balance_FTX( percentage_for_position=0.03 ):
-    client = FtxClient(api_key=FTX_READONLY,api_secret=FTX_READONLY_HASH)
+    client = FtxClient(api_key=FTX_READONLY_C1,api_secret=FTX_READONLY_C1_HASH,subaccount_name='c1')
     total_balance = float(client.get_balances()[0]['total'])
     return total_balance
 
@@ -222,26 +222,11 @@ if __name__ == "__main__":
     TELEGRAM_ID = os.getenv('TELEGRAM_ID')
     TELEGRAM_HASH = os.getenv('TELEGRAM_HASH')
 
-    FTX_READONLY = os.getenv('FTX_READONLY')
-    FTX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
-    # FTX_API_MAIN = os.getenv('FTX_API_MAIN')
-    # FTX_API_MAIN_HASH = os.getenv('FTX_API_MAIN_HASH')
-
     FTX_READONLY_C1 = os.getenv('FTX_READONLY_C1')
     FTX_READONLY_C1_HASH = os.getenv('FTX_READONLY_C1_HASH')
     FTX_C1 = os.getenv('FTX_C1')
     FTX_C1_HASH = os.getenv('FTX_C1_HASH')
 
-    # FTX_READONLY_C2 = os.getenv('FTX_READONLY_C2')
-    # FTX_READONLY_C2_HASH = os.getenv('FTX_READONLY_C2_HASH')
-    # FTX_C2 = os.getenv('FTX_C2')
-    # FTX_C2_HASH = os.getenv('FTX_C2_HASH')
-
-    # ftx_main = ccxt.ftx({
-    #                 'apiKey': FTX_API_MAIN,
-    #                 'secret': FTX_API_MAIN_HASH,
-    #                 'enableRateLimit': True,
-    #                     })
 
     ftx_c1 = ccxt.ftx({
                     'headers': {
@@ -252,14 +237,6 @@ if __name__ == "__main__":
                     'enableRateLimit': True,
                         })
 
-    # ftx_c2 = ccxt.ftx({
-    #                 'headers': {
-    #                 'FTX-SUBACCOUNT': 'c2',
-    #                 },
-    #                 'apiKey': FTX_C2,
-    #                 'secret': FTX_C2_HASH,
-    #                 'enableRateLimit': True,
-    #                     })
 
     # OKEX_READONLY = os.getenv('FTX_READONLY')
     # OKEX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
