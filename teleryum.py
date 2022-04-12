@@ -165,7 +165,6 @@ def trader(order_data, exchange):
     n_stop_losses = len(order_data['stop_losses'])
     
     amount_usd_position = get_amount_position_usdt()
-    print_op_data(order_data)
     # print('position in usdt $ ',amount_usd_position)
     # print('real LEVERAGE on FTX: 2 ')
 
