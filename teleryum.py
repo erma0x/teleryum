@@ -285,7 +285,7 @@ if __name__ == "__main__":
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
                 # print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
-                trader( order_data = op_data , exchange = ftx_c2)
+                trader( order_data = op_data , exchange = ftx_c1)
 
 
     # t.me/freecrypto_signals 
@@ -296,7 +296,7 @@ if __name__ == "__main__":
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
                 # print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-                trader( order_data = op_data )
+                trader( order_data = op_data , exchange = ftx_c1 )
     
     while True:
         if client.is_connected():
