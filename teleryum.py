@@ -7,8 +7,8 @@ from termcolor import colored
 from dotenv import load_dotenv
 from telethon.sync import TelegramClient, events
 import ccxt
-from ftx.client import FtxClient
-from ftx.perpetuals import ftx_perpetuals
+from ftx_api.client import FtxClient
+from ftx_api.perpetuals import ftx_perpetuals
 from channels import *
 
 def print_start():
@@ -223,8 +223,8 @@ if __name__ == "__main__":
     TELEGRAM_ID = os.getenv('TELEGRAM_ID')
     TELEGRAM_HASH = os.getenv('TELEGRAM_HASH')
 
-    # FTX_READONLY = os.getenv('FTX_READONLY')
-    # FTX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
+    FTX_READONLY = os.getenv('FTX_READONLY')
+    FTX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
     # FTX_API_MAIN = os.getenv('FTX_API_MAIN')
     # FTX_API_MAIN_HASH = os.getenv('FTX_API_MAIN_HASH')
 
