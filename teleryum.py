@@ -7,14 +7,13 @@ from termcolor import colored
 from dotenv import load_dotenv
 from telethon.sync import TelegramClient, events
 import ccxt
-from FTXclient import FtxClient
-from FTXperpetuals import ftx_perpetuals
-from params import *
+from ftx.client import FtxClient
+from ftx.perpetuals import ftx_perpetuals
 from channels import *
 
 def print_start():
     now = datetime.now(tzinfo)
-    print(colored(LOGO,'cyan'), colored("\tServer","cyan"),colored("Online","green"),now.strftime("%d/%m/%Y %H:%M:%S"),'\n\n')
+    print(colored("\tSTART SERVER TELERYUM : ","cyan"),colored("online","green"),now.strftime("%d/%m/%Y %H:%M:%S"),'\n\n')
 
 def print_op_data(op_data):
     print(colored('OPERATION DATA','cyan'))
@@ -211,6 +210,13 @@ def parser_CHANNEL_1(new_message):
 
 
 if __name__ == "__main__":
+
+    base_operation_data_structure = {'side':'',
+                                'leverage':'',
+                                'symbol':'',
+                                'take_profits':[],
+                                'entry_prices':[],
+                                'stop_losses':[]}
 
     tzinfo = timezone(timedelta(hours=+2.0))
     print_start()
