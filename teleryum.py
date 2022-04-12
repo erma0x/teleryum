@@ -107,7 +107,7 @@ def opposite(type_order):
     return 'buy'
 
 def get_free_balance_FTX():
-    client = FtxClient(api_key=FTX_READONLY,api_secret=FTX_READONLY_HASH)
+    client = FtxClient(api_key=FTX_READONLY_C1,api_secret=FTX_READONLY_C1_HASH,subaccount_name='c1')
     order = float(client.get_balances()[0]['free'])
     #print('YOUR FREE BALANCE: '+str(round(order,2)))
     return order
