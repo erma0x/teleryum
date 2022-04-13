@@ -215,7 +215,7 @@ if __name__ == "__main__":
                                 'stop_losses':[]}
 
     tzinfo = timezone(timedelta(hours=+2.0))
-    print_start()
+    #print_start()
 
     load_dotenv()
     TELEGRAM_USERNAME = os.getenv('TELEGRAM_USERNAME')
