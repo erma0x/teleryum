@@ -9,7 +9,6 @@
 ### kill deamon
 ```kill -9 <processID>```
 
-
 # Other commands for server
 
 ### Start deamons with nohup
@@ -32,7 +31,6 @@
 ```kill -l```
 
 ```kill <PID>```
-
 
 
 There are many fiddly things to take care of when becoming a well-behaved daemon process:

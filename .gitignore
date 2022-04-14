@@ -1,7 +1,8 @@
 *.session
 *.session-journal
 .env
-logs.out
+*.out
+TODO.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

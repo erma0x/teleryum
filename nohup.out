@@ -1,3 +1,0 @@
-/home/kobayashi/Documents/Teleryum/teleryum/teleryum.py:280: RuntimeWarning: coroutine 'main' was never awaited
-  main()
-RuntimeWarning: Enable tracemalloc to get the object allocation traceback
