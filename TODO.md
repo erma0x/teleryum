@@ -1,6 +1,5 @@
 # In progress
 
-⭐ AGGIUNGI CANALI
 
 
 
@@ -148,5 +147,12 @@ trasforma l'architettura
 trasforma l'architettura
     SENZA python-deamon,
     
+    ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
+    python3 teleryum.py  
+
+
+⭐ AGGIUNGI CANALI CON I MESSAGGI
+
+⭐ TEST LIVE DEI MESSAGGI DI 10 GRUPPI CONTEMPORANEAMENTE 
     ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
     python3 teleryum.py  
