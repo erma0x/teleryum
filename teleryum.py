@@ -1,6 +1,5 @@
 import sys
 import os
-#import daemon
 import time
 
 from datetime import datetime, timezone, timedelta
@@ -232,14 +231,11 @@ async def main():
     TELEGRAM_ID = os.getenv('TELEGRAM_ID')
     TELEGRAM_HASH = os.getenv('TELEGRAM_HASH')
 
-
-    FTX_C1 = os.getenv('FTX_C1')
-    FTX_C1_HASH = os.getenv('FTX_C1_HASH')
     client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
     await client.start()
 
-    if print_op: print_start()
-
+    FTX_C1 = os.getenv('FTX_C1')
+    FTX_C1_HASH = os.getenv('FTX_C1_HASH')
 
     ftx_c1 = ccxt.ftx({
                     'headers': {
@@ -250,14 +246,16 @@ async def main():
                     'enableRateLimit': True,
                         })
 
+    if print_op: print_start()
+
     # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
     @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
     async def trader_PUBLIC_TEST_CHANNEL( event ):
         NEW_MESSAGE = event.message.message
         op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
+        print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
-                print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
                 await trader( order_data = op_data , exchange = ftx_c1)
 
     # t.me/freecrypto_signals 
@@ -265,16 +263,15 @@ async def main():
     # async def trader_CHANNEL_1( event ):
     #     NEW_MESSAGE = await event.message.message
     #     op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
+    #     print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
     #     if op_data:
     #         if op_data['symbol'] in ftx_perpetuals :
-    #             # print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
     #             await trader( order_data = op_data , exchange = ftx_c1 )
 
     async with client:        
         if client.is_connected():
             await client.run_until_disconnected()
             #await client.loop.run_forever()
-
         else:
             await client.start()
         
@@ -282,5 +279,4 @@ if __name__ == "__main__":
     load_dotenv()
     FTX_READONLY_C1 = os.getenv('FTX_READONLY_C1')
     FTX_READONLY_C1_HASH = os.getenv('FTX_READONLY_C1_HASH')
-    # with daemon.DaemonContext():
     asyncio.run(main())
