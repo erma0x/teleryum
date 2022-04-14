@@ -1,7 +1,6 @@
 *.session
 *.session-journal
 .env
-TODO.md
 logs.out
 
 # Byte-compiled / optimized / DLL files

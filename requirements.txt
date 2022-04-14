@@ -3,3 +3,4 @@ python-dotenv==0.19.2
 termcolor==1.1.0
 Telethon==1.24.0
 ccxt==1.77.80
+sqlite3==3.35.5

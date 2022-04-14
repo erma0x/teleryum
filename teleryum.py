@@ -1,19 +1,38 @@
 import sys
 import os
+import daemon
+import time
+
 from datetime import datetime, timezone, timedelta
+tzinfo = timezone(timedelta(hours=+2.0))
+
 from pprint import pprint
 from copy import deepcopy
+
 from termcolor import colored
 from dotenv import load_dotenv
-from telethon.sync import TelegramClient, events
+
+import asyncio
+from telethon import TelegramClient, events
+
 import ccxt
+
 from ftx_api.client import FtxClient
 from ftx_api.perpetuals import ftx_perpetuals
+
 from channels import *
+from params import *
+import socket
+
 
 def print_start():
     now = datetime.now(tzinfo)
-    print(colored("\tSTART SERVER TELERYUM : ","cyan"),colored("online","green"),now.strftime("%d/%m/%Y %H:%M:%S"),'\n\n')
+    print(colored("\n\tSTART SERVER","yellow"))
+    h_name = socket.gethostname()
+    address = socket.gethostbyname(h_name)
+    print("hostname is:     \t" + h_name)
+    print("computer address:\t" + address)
+    print(colored("online","green"),now.strftime("\t\t\t%d/%m/%Y %H:%M:%S\n\n"))
 
 def print_op_data(op_data):
     print(colored('OPERATION DATA','cyan'))
@@ -108,18 +127,18 @@ def opposite(type_order):
 
 def get_free_balance_FTX():
     client = FtxClient(api_key=FTX_READONLY_C1,api_secret=FTX_READONLY_C1_HASH,subaccount_name='c1')
-    order = float(client.get_balances()[0]['free'])
-    #print('YOUR FREE BALANCE: '+str(round(order,2)))
-    return order
+    free_balance = client.get_balances()[0]['free']
+    #print('YOUR FREE BALANCE: '+str(round(free_balance,2)))
+    return float(free_balance)
 
 def get_total_balance_FTX( percentage_for_position=0.03 ):
     client = FtxClient(api_key=FTX_READONLY_C1,api_secret=FTX_READONLY_C1_HASH,subaccount_name='c1')
-    total_balance = float(client.get_balances()[0]['total'])
-    return total_balance
+    total_balance = client.get_balances()[0]['total']
+    return float(total_balance)
 
-def get_amount_position_usdt():
+async def get_amount_position_usdt():
     total_balance = get_total_balance_FTX()
-    # operation money placement
+
     if total_balance > 300:
         amount_position_usdt =  total_balance * 0.03   # get 3% of the position
     elif total_balance > 200:
@@ -147,7 +166,7 @@ def balance_trigger_orders_quantity(trigger_prices, entry_quantity):
 
     return trigger_quantities
 
-def trader(order_data, exchange):
+async def trader(order_data, exchange):
     columns = ['entry_prices','take_profits','stop_losses']
     for col in columns:
         for i in range(len(order_data[col])):
@@ -164,9 +183,9 @@ def trader(order_data, exchange):
     n_take_profits = len(order_data['take_profits'])
     n_stop_losses = len(order_data['stop_losses'])
     
-    amount_usd_position = get_amount_position_usdt()
-    # print('position in usdt $ ',amount_usd_position)
-    # print('real LEVERAGE on FTX: 2 ')
+    amount_usd_position = await get_amount_position_usdt()
+    
+    if print_op: print('position in usdt $ ',amount_usd_position,'real LEVERAGE on FTX: 2 ')
 
     if get_free_balance_FTX() < 1.2 * amount_usd_position:
         return None
@@ -174,16 +193,17 @@ def trader(order_data, exchange):
     for i in range(len(order_data['entry_prices'])): 
         
         entry_price = deepcopy(order_data['entry_prices'][i])
-
         amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
-        # print('amount_token_position ',amount_token_position)
+        
+        if print_op: print('amount_token_position ',amount_token_position)      
         entry_order = exchange.create_limit_order(symbol = order_data['symbol'],
                                                 side = order_data['side'],
                                                 amount = amount_token_position,
                                                 price = entry_price  )
 
         take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)
-        # print('take_profit_quantities ',take_profit_quantities)
+        
+        if print_op: print('take_profit_quantities ',take_profit_quantities)
 
         for j in range(len(order_data['take_profits'])):
             take_profit_order = exchange.create_order(symbol = order_data['symbol'],
@@ -194,7 +214,8 @@ def trader(order_data, exchange):
                                                     params = {'triggerPrice':order_data['take_profits'][j],'reduceOnly':True })
 
         stop_loss_quantities = balance_trigger_orders_quantity(order_data['stop_losses'], amount_token_position)
-        # print('stop_loss_quantities ',stop_loss_quantities)
+        
+        if print_op: print('stop_loss_quantities ',stop_loss_quantities)
 
         for k in range(len(order_data['stop_losses'])):
             stop_loss_order = exchange.create_order(symbol = order_data['symbol'],
@@ -204,28 +225,20 @@ def trader(order_data, exchange):
                                                     price = order_data['stop_losses'][k],
                                                     params = {'triggerPrice':order_data['stop_losses'][k],'reduceOnly':True })
 
-
-if __name__ == "__main__":
-
-    base_operation_data_structure = {'side':'',
-                                'leverage':'',
-                                'symbol':'',
-                                'take_profits':[],
-                                'entry_prices':[],
-                                'stop_losses':[]}
-
-    tzinfo = timezone(timedelta(hours=+2.0))
-    #print_start()
-
+async def main():      
     load_dotenv()
+
     TELEGRAM_USERNAME = os.getenv('TELEGRAM_USERNAME')
     TELEGRAM_ID = os.getenv('TELEGRAM_ID')
     TELEGRAM_HASH = os.getenv('TELEGRAM_HASH')
 
-    FTX_READONLY_C1 = os.getenv('FTX_READONLY_C1')
-    FTX_READONLY_C1_HASH = os.getenv('FTX_READONLY_C1_HASH')
+
     FTX_C1 = os.getenv('FTX_C1')
     FTX_C1_HASH = os.getenv('FTX_C1_HASH')
+    client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
+    await client.start()
+
+    if print_op: print_start()
 
 
     ftx_c1 = ccxt.ftx({
@@ -237,22 +250,6 @@ if __name__ == "__main__":
                     'enableRateLimit': True,
                         })
 
-
-    # OKEX_READONLY = os.getenv('FTX_READONLY')
-    # OKEX_READONLY_HASH = os.getenv('FTX_READONLY_HASH')
-    # OKEX_API_MAIN = os.getenv('FTX_API_MAIN')
-    # OKEX_API_MAIN_HASH = os.getenv('FTX_API_MAIN_HASH')
-
-    # exchange_OKEX = ccxt.okex({
-    #             'apiKey': OKEX_API_MAIN,
-    #             'secret': OKEX_API_MAIN_HASH,
-    #             'enableRateLimit': True,
-    #                 })
-
-
-    client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
-    client.start()
-
     # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
     @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
     async def trader_PUBLIC_TEST_CHANNEL( event ):
@@ -260,24 +257,30 @@ if __name__ == "__main__":
         op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
-                # print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
-                trader( order_data = op_data , exchange = ftx_c1)
-
+                print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
+                await trader( order_data = op_data , exchange = ftx_c1)
 
     # t.me/freecrypto_signals 
-    @client.on(events.NewMessage( chats = CHANNEL_1 ))
-    async def trader_CHANNEL_1( event ):
-        NEW_MESSAGE = event.message.message
-        op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
-        if op_data:
-            if op_data['symbol'] in ftx_perpetuals :
-                # print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-                trader( order_data = op_data , exchange = ftx_c1 )
-    
-    while True:
-        if client.is_connected():
-            with client:
-                client.run_until_disconnected()
+    # @client.on(events.NewMessage( chats = CHANNEL_1 ))
+    # async def trader_CHANNEL_1( event ):
+    #     NEW_MESSAGE = await event.message.message
+    #     op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
+    #     if op_data:
+    #         if op_data['symbol'] in ftx_perpetuals :
+    #             # print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+    #             await trader( order_data = op_data , exchange = ftx_c1 )
+
+    async with client:        
+        if await client.is_connected():
+            await client.run_until_disconnected()
+            #await client.loop.run_forever()
+
         else:
-            client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
-            client.start()
+            await client.start()
+        
+if __name__ == "__main__":
+    load_dotenv()
+    FTX_READONLY_C1 = os.getenv('FTX_READONLY_C1')
+    FTX_READONLY_C1_HASH = os.getenv('FTX_READONLY_C1_HASH')
+    # with daemon.DaemonContext():
+    asyncio.run(main())
