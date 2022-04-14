@@ -271,7 +271,7 @@ async def main():
     #             await trader( order_data = op_data , exchange = ftx_c1 )
 
     async with client:        
-        if await client.is_connected():
+        if client.is_connected():
             await client.run_until_disconnected()
             #await client.loop.run_forever()
 
