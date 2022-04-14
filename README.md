@@ -12,7 +12,7 @@ Telegram message scanner and automated trader  <br>
 
 ```source ./venv/bin/activate```
 
-a. ```nohup python3 teleryum.py > /home/user/teleryum/logs.out &```
+a. ```nohup python3 -u teleryum.py 1> log.out 2> log.err &```
 
 b. ```python3 teleryum.py```
 

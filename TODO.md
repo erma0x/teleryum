@@ -1,13 +1,8 @@
 # In progress
 
+⭐ Test messaggi che arrivato su log.out di nohup
+    pid 988795
 
-
-
-⭐ TEST LIVE DEI MESSAGGI DI 10 GRUPPI CONTEMPORANEAMENTE 
-    ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
-    python3 teleryum.py  
-
-    FIX await 
 
 
 # Done
@@ -158,6 +153,17 @@ trasforma l'architettura
 
 ⭐ AGGIUNGI CANALI CON I MESSAGGI
 
+🔻 TEST LIVE DEI MESSAGGI DI 10 GRUPPI CONTEMPORANEAMENTE 
+    ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
+    python3 teleryum.py  
+    
+    > DISCONNETTE DOPO 30 MIN con 2 min di MaxTimeout e senza nohup
+    ho alzato a 20 min il timeout del ssh e con nohup se non devo avere i print
+
 ⭐ TEST LIVE DEI MESSAGGI DI 10 GRUPPI CONTEMPORANEAMENTE 
     ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
     python3 teleryum.py  
+
+    FIX await architecture
+
+⭐ FIX NOHUP output and errors deamon
