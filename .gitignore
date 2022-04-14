@@ -2,6 +2,7 @@
 *.session-journal
 .env
 *.out
+
 TODO.md
 
 # Byte-compiled / optimized / DLL files

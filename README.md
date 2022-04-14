@@ -6,16 +6,17 @@ Telegram message scanner and automated trader  <br>
  2. Find out if the new message is a signal
  3. If it is a signal, parse it and send it as operation to okex.com or ftx.com with ccxt open source library
 
-## How to Run 
-```bash
-source ./venv/bin/activate
+### How to Run 
 
-nohup python3 teleryum.py > /home/user/teleryum/logs.out &
-# OR
-python3 teleryum.py            
-```
+```ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME```
 
-## Installation
+```source ./venv/bin/activate```
+
+a. ```nohup python3 teleryum.py > /home/user/teleryum/logs.out &```
+
+b. ```python3 teleryum.py```
+
+### Installation
 1. #### Insert Telegram signal channels on params.py (example)
 ```python
 CHANNEL_1 = 'freecrypto_signals'

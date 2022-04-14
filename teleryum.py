@@ -252,21 +252,77 @@ async def main():
     @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
     async def trader_PUBLIC_TEST_CHANNEL( event ):
         NEW_MESSAGE = event.message.message
-        op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
+
+        op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
                 await trader( order_data = op_data , exchange = ftx_c1)
 
     # t.me/freecrypto_signals 
-    # @client.on(events.NewMessage( chats = CHANNEL_1 ))
-    # async def trader_CHANNEL_1( event ):
-    #     NEW_MESSAGE = await event.message.message
-    #     op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
-    #     print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-    #     if op_data:
-    #         if op_data['symbol'] in ftx_perpetuals :
-    #             await trader( order_data = op_data , exchange = ftx_c1 )
+    @client.on(events.NewMessage( chats = CHANNEL_1 ))
+    async def trader_CHANNEL_1( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+
+        op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
+        if op_data:
+            if op_data['symbol'] in ftx_perpetuals :
+                await trader( order_data = op_data , exchange = ftx_c1 )
+
+    # t.me/cryptosignals0rg 
+    @client.on(events.NewMessage( chats = CHANNEL_2 ))
+    async def trader_CHANNEL_2( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_2 )
+
+    # t.me/fatpigsignals 
+    @client.on(events.NewMessage( chats = CHANNEL_3 ))
+    async def trader_CHANNEL_3( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_3 )
+
+    # t.me/BinanceKillersVipOfficial 
+    @client.on(events.NewMessage( chats = CHANNEL_4 ))
+    async def trader_CHANNEL_4( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_4 )
+
+    # t.me/CryptoTrades 
+    @client.on(events.NewMessage( chats = CHANNEL_5 ))
+    async def trader_CHANNEL_5( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_5 )
+
+    # t.me/Coin_Signals 
+    @client.on(events.NewMessage( chats = CHANNEL_6 ))
+    async def trader_CHANNEL_6( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_6 )
+
+    # t.me/HIRN_CRYPTO 
+    @client.on(events.NewMessage( chats = CHANNEL_7 ))
+    async def trader_CHANNEL_7( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_7 )
+
+        # t.me/cryptohopperofficial 
+    @client.on(events.NewMessage( chats = CHANNEL_8 ))
+    async def trader_CHANNEL_8( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_8 )
+
+        # t.me/altsignals 
+    @client.on(events.NewMessage( chats = CHANNEL_9 ))
+    async def trader_CHANNEL_9( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_9 )
+
+        # t.me/SignalsBlueChannel 
+    @client.on(events.NewMessage( chats = CHANNEL_10 ))
+    async def trader_CHANNEL_10( event ):
+        NEW_MESSAGE = await event.message.message
+        print_message( message = NEW_MESSAGE , channel = CHANNEL_10 )
 
     async with client:        
         if client.is_connected():

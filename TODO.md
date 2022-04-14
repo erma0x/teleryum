@@ -1,11 +1,10 @@
 # In progress
 
+⭐ AGGIUNGI CANALI
 
-🔥 Github new personal access token from  for early expiry
 
-🔥  ASYNCIO cambio architettura telethon sync => telethon async 
-trasforma l'architettura
-    python-deamon prova a creare un demone invece di utilizzare nohup
+
+
 
 # Done
 
@@ -139,3 +138,15 @@ trasforma l'architettura
     
     - BUG 1 sqlite3.OperationalError: database is locked
         SOLVE: https://www.rhumbarlv.com/how-do-i-fix-sqlite3-operationalerror-database-is-locked/
+⭐ Github new personal access token from for early expiry
+
+🔻  ASYNCIO cambio architettura telethon sync => telethon async 
+trasforma l'architettura
+    python-deamon prova a creare un demone invece di utilizzare nohup
+
+⭐  ASYNCIO cambio architettura telethon sync => telethon async 
+trasforma l'architettura
+    SENZA python-deamon,
+    
+    ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
+    python3 teleryum.py  
