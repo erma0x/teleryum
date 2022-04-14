@@ -263,12 +263,11 @@ async def main():
     @client.on(events.NewMessage( chats = CHANNEL_1 ))
     async def trader_CHANNEL_1( event ):
         NEW_MESSAGE = event.message.message
-        print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-
         op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         if op_data:
             if op_data['symbol'] in ftx_perpetuals :
-                await trader( order_data = op_data , exchange = ftx_c1 )
+                print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+    #           await trader( order_data = op_data , exchange = ftx_c1 )
 
     # t.me/cryptosignals0rg 
     @client.on(events.NewMessage( chats = CHANNEL_2 ))

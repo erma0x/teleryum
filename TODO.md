@@ -3,6 +3,11 @@
 
 
 
+⭐ TEST LIVE DEI MESSAGGI DI 10 GRUPPI CONTEMPORANEAMENTE 
+    ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
+    python3 teleryum.py  
+
+    FIX await 
 
 
 # Done
