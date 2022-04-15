@@ -332,12 +332,9 @@ async def main():
         async with client:        
             if client.is_connected():
                 await client.loop.run_until_complete(main())            # await client.run_until_disconnected() 
-                await asyncio.sleep(1)
 
             else:
-                await client.start()
-                await client.loop.run_until_complete(main())
-            
+                await client.start()           
 
 if __name__ == "__main__":
     load_dotenv()
