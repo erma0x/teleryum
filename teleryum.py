@@ -233,6 +233,8 @@ async def main():
 
     client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
 
+    if print_op: print_start()
+
     while True:
         await client.start()
 
@@ -248,7 +250,6 @@ async def main():
                         'enableRateLimit': True,
                             })
 
-        if print_op: print_start()
 
         # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
         @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
