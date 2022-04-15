@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+import socket
 
 from datetime import datetime, timezone, timedelta
 tzinfo = timezone(timedelta(hours=+2.0))
@@ -21,16 +22,12 @@ from ftx_api.perpetuals import ftx_perpetuals
 
 from channels import *
 from params import *
-import socket
 
 
 def print_start():
     now = datetime.now(tzinfo)
     print(colored("\n\tSTART SERVER","yellow"))
-    h_name = socket.gethostname()
-    address = socket.gethostbyname(h_name)
-    print("hostname is:     \t" + h_name)
-    print("computer address:\t" + address)
+    print("IP :\t" + address)
     print(colored("online","green"),now.strftime("\t\t\t%d/%m/%Y %H:%M:%S\n\n"))
 
 def print_op_data(op_data):
@@ -43,6 +40,7 @@ def print_op_data(op_data):
     print('leverage       \t',op_data['leverage'])
 
 def print_message(message,channel):
+    print('~'*70)
     print('\n',colored('NEW SIGNAL','green'),colored(channel,'cyan'),'\t', str(datetime.now(tzinfo))[:-13],'\n\n',message,'\n')
 
 def parser_CHANNEL_1(new_message):
@@ -183,9 +181,9 @@ async def trader(order_data, exchange):
     n_stop_losses = len(order_data['stop_losses'])
     
     amount_usd_position = await get_amount_position_usdt()
-    
-    if print_op: print('position in usdt $ ',amount_usd_position,'real LEVERAGE on FTX: 2 ')
 
+    if print_op: print('position in usdt $ ',amount_usd_position,'real LEVERAGE on FTX: 2 ')
+    
     if get_free_balance_FTX() < 1.2 * amount_usd_position:
         return None
 
@@ -193,17 +191,14 @@ async def trader(order_data, exchange):
         
         entry_price = deepcopy(order_data['entry_prices'][i])
         amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
-        
         if print_op: print('amount_token_position ',amount_token_position)      
         entry_order = exchange.create_limit_order(symbol = order_data['symbol'],
                                                 side = order_data['side'],
                                                 amount = amount_token_position,
                                                 price = entry_price  )
 
-        take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)
-        
+        take_profit_quantities = balance_trigger_orders_quantity(order_data['take_profits'], amount_token_position)        
         if print_op: print('take_profit_quantities ',take_profit_quantities)
-
         for j in range(len(order_data['take_profits'])):
             take_profit_order = exchange.create_order(symbol = order_data['symbol'],
                                                     type = 'takeProfit',
@@ -213,9 +208,7 @@ async def trader(order_data, exchange):
                                                     params = {'triggerPrice':order_data['take_profits'][j],'reduceOnly':True })
 
         stop_loss_quantities = balance_trigger_orders_quantity(order_data['stop_losses'], amount_token_position)
-        
         if print_op: print('stop_loss_quantities ',stop_loss_quantities)
-
         for k in range(len(order_data['stop_losses'])):
             stop_loss_order = exchange.create_order(symbol = order_data['symbol'],
                                                     type = 'stop',
@@ -249,7 +242,7 @@ async def main():
     
     while True:
 
-        # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
+        # t.me/test_channel_pubblico_24991204  
         @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
         async def trader_PUBLIC_TEST_CHANNEL( event ):
             NEW_MESSAGE = event.message.message
