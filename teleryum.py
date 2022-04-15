@@ -326,8 +326,8 @@ async def main():
 
     async with client:        
         if client.is_connected():
-            await client.run_until_disconnected() 
-            #await client.loop.run_forever()
+            #await client.run_until_disconnected() 
+            await client.loop.run_forever()
         else:
             await client.start()
         
