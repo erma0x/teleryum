@@ -1,9 +1,14 @@
 # In progress
+### PRIORITA
 
-⭐ Test messaggi che arrivato su log.out di nohup
-    pid 988795
+⭐ capire a quale gruppo affidarsi per i test, creato il file groups_raw.txt
 
 
+⭐ capire a quale exchange affidarsi e con quale strumento
+puntare su okex con leva x10, kucoin x2/x5, ftx x2
+
+
+⭐ EXPLORATION passa ad okex con ccxt-rest su github
 
 # Done
 
@@ -163,7 +168,15 @@ trasforma l'architettura
 ⭐ TEST LIVE DEI MESSAGGI DI 10 GRUPPI CONTEMPORANEAMENTE 
     ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME
     python3 teleryum.py  
-
-    FIX await architecture
+    > FIX await architecture
 
 ⭐ FIX NOHUP output and errors deamon
+
+⭐ Test messaggi che arrivano su log.out di nohup con python3 -u
+    pid 990595
+    
+     OK DEAMON 
+    nohup python3 -u teleryum.py > log.out 2> log.err & 
+    
+    spit out the pid process 
+    if u want to kill it : kill -9 

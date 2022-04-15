@@ -265,9 +265,10 @@ async def main():
         NEW_MESSAGE = event.message.message
         op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
         if op_data:
-            if op_data['symbol'] in ftx_perpetuals :
+            if op_data['symbol'] in ftx_perpetuals:
                 print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
     #           await trader( order_data = op_data , exchange = ftx_c1 )
+            
 
     # t.me/cryptosignals0rg 
     @client.on(events.NewMessage( chats = CHANNEL_2 ))
@@ -305,19 +306,19 @@ async def main():
         NEW_MESSAGE = event.message.message
         print_message( message = NEW_MESSAGE , channel = CHANNEL_7 )
 
-        # t.me/cryptohopperofficial 
+    # t.me/cryptohopperofficial 
     @client.on(events.NewMessage( chats = CHANNEL_8 ))
     async def trader_CHANNEL_8( event ):
         NEW_MESSAGE = event.message.message
         print_message( message = NEW_MESSAGE , channel = CHANNEL_8 )
 
-        # t.me/altsignals 
+    # t.me/altsignals 
     @client.on(events.NewMessage( chats = CHANNEL_9 ))
     async def trader_CHANNEL_9( event ):
         NEW_MESSAGE = event.message.message
         print_message( message = NEW_MESSAGE , channel = CHANNEL_9 )
 
-        # t.me/SignalsBlueChannel 
+     # t.me/SignalsBlueChannel 
     @client.on(events.NewMessage( chats = CHANNEL_10 ))
     async def trader_CHANNEL_10( event ):
         NEW_MESSAGE = event.message.message
@@ -325,7 +326,7 @@ async def main():
 
     async with client:        
         if client.is_connected():
-            await client.run_until_disconnected()
+            await client.run_until_disconnected() 
             #await client.loop.run_forever()
         else:
             await client.start()
