@@ -337,8 +337,10 @@ async def main():
                 await client.start()           
 
 if __name__ == "__main__":
+
     load_dotenv()
     FTX_READONLY_C1 = os.getenv('FTX_READONLY_C1')
     FTX_READONLY_C1_HASH = os.getenv('FTX_READONLY_C1_HASH')
+
     asyncio.run(main())
-    asyncio.sleep(1)
+
