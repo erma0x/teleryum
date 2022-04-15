@@ -27,7 +27,7 @@ from params import *
 def print_start():
     print(colored(LOGO,"cyan"))
     now = datetime.now(tzinfo)
-    print(colored("SERVER ONLINE ","green"),now.strftime("%d/%m/%Y %H:%M:%S\n\n"))
+    print(colored("\t SERVER ONLINE ","green"),now.strftime("%d/%m/%Y %H:%M:%S\n\n"))
 
 def print_op_data(op_data):
     print(colored('OPERATION DATA','cyan'))
