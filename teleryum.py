@@ -247,10 +247,7 @@ async def main():
 
     if print_op: print_start()
     
-    await client.start()
-
     while True:
-        await asyncio.sleep(1)
 
         # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
         @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
@@ -270,8 +267,7 @@ async def main():
             if op_data:
                 if op_data['symbol'] in ftx_perpetuals:
                     print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
-        #           await trader( order_data = op_data , exchange = ftx_c1 )
-                
+                    # await trader( order_data = op_data , exchange = ftx_c1 )     
 
         # t.me/cryptosignals0rg 
         @client.on(events.NewMessage( chats = CHANNEL_2 ))
@@ -327,11 +323,11 @@ async def main():
             NEW_MESSAGE = event.message.message
             print_message( message = NEW_MESSAGE , channel = CHANNEL_10 )
 
-        #await asyncio.sleep(1)
-
+        await asyncio.sleep(1)
+        
         async with client:        
             if client.is_connected():
-                await client.loop.run_until_complete(main())            # await client.run_until_disconnected() 
+                await client.loop.run_until_complete(main()) # await client.run_until_disconnected() 
 
             else:
                 await client.start()           
