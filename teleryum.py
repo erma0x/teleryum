@@ -255,12 +255,12 @@ async def main():
         @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
         async def trader_PUBLIC_TEST_CHANNEL( event ):
             NEW_MESSAGE = event.message.message
-            print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
-
             op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
             if op_data:
                 if op_data['symbol'] in ftx_perpetuals :
-                    await trader( order_data = op_data , exchange = ftx_c1)
+                    print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
+                    #await trader( order_data = op_data , exchange = ftx_c1)
+                    await asyncio.sleep(2)
 
         # t.me/freecrypto_signals 
         @client.on(events.NewMessage( chats = CHANNEL_1 ))

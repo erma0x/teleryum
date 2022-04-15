@@ -3,6 +3,8 @@
 
 ⭐ capire a quale gruppo affidarsi per i test, creato il file groups_raw.txt
 
+⭐ Lungo test con la nuova architettura su RBX
+
 
 ⭐ capire a quale exchange affidarsi e con quale strumento
 puntare su okex con leva x10, kucoin x2/x5, ftx x2
@@ -180,3 +182,6 @@ trasforma l'architettura
     
     spit out the pid process 
     if u want to kill it : kill -9 
+
+⭐ test nohup python3 -u teleryum.py > log.out 2> log.err & FUNZIONANTE per 20h consecutive
+    -> cambio architettura con client.loop.run_forever()
