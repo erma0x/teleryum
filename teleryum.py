@@ -233,23 +233,24 @@ async def main():
 
     client = TelegramClient(TELEGRAM_USERNAME, TELEGRAM_ID, TELEGRAM_HASH) 
 
+    FTX_C1 = os.getenv('FTX_C1')
+    FTX_C1_HASH = os.getenv('FTX_C1_HASH')
+
+    ftx_c1 = ccxt.ftx({
+                    'headers': {
+                    'FTX-SUBACCOUNT': 'c1',
+                    },
+                    'apiKey': FTX_C1,
+                    'secret': FTX_C1_HASH,
+                    'enableRateLimit': True,
+                        })
+
     if print_op: print_start()
+    
+    await client.start()
 
     while True:
-        await client.start()
-
-        FTX_C1 = os.getenv('FTX_C1')
-        FTX_C1_HASH = os.getenv('FTX_C1_HASH')
-
-        ftx_c1 = ccxt.ftx({
-                        'headers': {
-                        'FTX-SUBACCOUNT': 'c1',
-                        },
-                        'apiKey': FTX_C1,
-                        'secret': FTX_C1_HASH,
-                        'enableRateLimit': True,
-                            })
-
+        await asyncio.sleep(1)
 
         # PUBLIC_TEST_CHANNEL FAX SIMILE == freecrypto_signals 
         @client.on(events.NewMessage( chats = PUBLIC_TEST_CHANNEL ))
@@ -260,7 +261,6 @@ async def main():
                 if op_data['symbol'] in ftx_perpetuals :
                     print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
                     #await trader( order_data = op_data , exchange = ftx_c1)
-                    await asyncio.sleep(2)
 
         # t.me/freecrypto_signals 
         @client.on(events.NewMessage( chats = CHANNEL_1 ))
@@ -327,16 +327,17 @@ async def main():
             NEW_MESSAGE = event.message.message
             print_message( message = NEW_MESSAGE , channel = CHANNEL_10 )
 
-    async with client:        
-        if client.is_connected():
-            # await client.run_until_disconnected() 
-            await client.loop.run_until_complete(main())
-            await asyncio.sleep(1)
+        #await asyncio.sleep(1)
 
-        else:
-            await client.start()
-            await client.loop.run_until_complete(main())
-            await asyncio.sleep(1)
+        async with client:        
+            if client.is_connected():
+                await client.loop.run_until_complete(main())            # await client.run_until_disconnected() 
+                await asyncio.sleep(1)
+
+            else:
+                await client.start()
+                await client.loop.run_until_complete(main())
+            
 
 if __name__ == "__main__":
     load_dotenv()
