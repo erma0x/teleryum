@@ -1,16 +1,31 @@
 # In progress
 ### PRIORITA
+CANALI
+1. learn2.trade
+2. GUARDA BOOKMARK E COPIA I CANALI
+3.
+
+
+EXCHANGEs
+1. kucoin
+2. kraken
+3. ftx
+
+⭐ Lungo test con la nuova architettura su RBX -> guarda print dei messaggi
+START 15/04/2022 17:39:21
+find pid with htop
 
 ⭐ capire a quale gruppo affidarsi per i test, creato il file groups_raw.txt
-
-⭐ Lungo test con la nuova architettura su RBX
-
 
 ⭐ capire a quale exchange affidarsi e con quale strumento
 puntare su okex con leva x10, kucoin x2/x5, ftx x2
 
 
 ⭐ EXPLORATION passa ad okex con ccxt-rest su github
+
+
+
+
 
 # Done
 
@@ -185,3 +200,5 @@ trasforma l'architettura
 
 ⭐ test nohup python3 -u teleryum.py > log.out 2> log.err & FUNZIONANTE per 20h consecutive
     -> cambio architettura con client.loop.run_forever()
+
+⭐ demone funzionante: disponibile da guardare con 'htop'

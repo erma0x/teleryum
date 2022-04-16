@@ -56,6 +56,18 @@ Create .env file inside the project root folder and insert all your credential a
 
 <br>
 
+# Documents
+EXCHANGEs
+1. kucoin
+2. kraken
+3. ftx
+
+CHANNELS
+INITIAL CAP
+2k
+1m 4k
+2m 6k
+
 ## How to get credentials
 ### FTX exchange
 1) Create an account on https://www.ftx.com and deposit capital (min 100$)

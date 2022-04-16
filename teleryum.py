@@ -249,7 +249,7 @@ async def main():
             if op_data:
                 if op_data['symbol'] in ftx_perpetuals :
                     print_message( message = NEW_MESSAGE, channel = PUBLIC_TEST_CHANNEL )
-                    #await trader( order_data = op_data , exchange = ftx_c1)
+                    # await trader( order_data = op_data , exchange = ftx_c1)
 
         # t.me/freecrypto_signals 
         @client.on(events.NewMessage( chats = CHANNEL_1 ))
@@ -257,9 +257,18 @@ async def main():
             NEW_MESSAGE = event.message.message
             op_data = parser_CHANNEL_1( new_message = NEW_MESSAGE)
             if op_data:
-                if op_data['symbol'] in ftx_perpetuals:
+                if op_data['symbol'] in kucoin_perpetuals:
+                    print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+                    # await trader( order_data = op_data , exchange = ftx_c1)
+
+                elif op_data['symbol'] in kraken_perpetuals:
+                    print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
+
+                elif op_data['symbol'] in ftx_perpetuals:
                     print_message( message = NEW_MESSAGE , channel = CHANNEL_1 )
                     # await trader( order_data = op_data , exchange = ftx_c1 )     
+                else:
+                    pass
 
         # t.me/cryptosignals0rg 
         @client.on(events.NewMessage( chats = CHANNEL_2 ))
