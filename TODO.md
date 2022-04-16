@@ -1,27 +1,29 @@
 # In progress
 ### PRIORITA
-CANALI
-1. learn2.trade
-2. GUARDA BOOKMARK E COPIA I CANALI
-3.
 
 
-EXCHANGEs
-1. kucoin
-2. kraken
-3. ftx
+⭐ crea account kraken
+⭐ crea account kucoin
+⭐ api trade 
+⭐ api trade 
+⭐ api lettura 
+⭐ api lettura 
+⭐ ccxt kucoin? funziona?
+⭐ ccxt kraken? funziona?
+
 
 ⭐ Lungo test con la nuova architettura su RBX -> guarda print dei messaggi
 START 15/04/2022 17:39:21
 find pid with htop
-
-⭐ capire a quale gruppo affidarsi per i test, creato il file groups_raw.txt
-
-⭐ capire a quale exchange affidarsi e con quale strumento
-puntare su okex con leva x10, kucoin x2/x5, ftx x2
+dura piu di 24h
 
 
-⭐ EXPLORATION passa ad okex con ccxt-rest su github
+
+
+
+
+
+
 
 
 
@@ -202,3 +204,14 @@ trasforma l'architettura
     -> cambio architettura con client.loop.run_forever()
 
 ⭐ demone funzionante: disponibile da guardare con 'htop'
+
+🔻 EXPLORATION passa ad okex con ccxt-rest su github
+    -> ci spostiamo su ftx, kraken e kucoin
+
+
+⭐ capire a quale gruppo affidarsi per i test, creato il file groups_raw.txt
+
+
+⭐ capire a quale exchange affidarsi e con quale strumento
+puntare su okex con leva x10, kucoin x2/x5, ftx x2
+    -> ci spostiamo su ftx, kraken e kucoin

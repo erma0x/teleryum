@@ -1,6 +1,7 @@
 # IMPORTANT commands for server
 
 ### lunch deamon
+```ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME```
 ```sudo nohup python3 teleryum.py > /path/to/custom.out &```
 
 ### find process id
