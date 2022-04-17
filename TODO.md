@@ -1,6 +1,16 @@
 # In progress
 ### PRIORITA
 
+capire se posso usare una sola funzione
+trader_ccxt()
+o devo fare
+trader_ftx
+trader_kucoin
+trader_kraken
+per le diverse api in relazione anche con ccxt
+
+
+google auth x telerym gmail
 
 ⭐ crea account kraken
 ⭐ crea account kucoin
