@@ -1,6 +1,26 @@
 # In progress
 ### PRIORITA
 
+⭐ TEST trasferisci 3 da okex a kucoin
+
+⭐ trasferisci 30 da okex a kucoin
+
+⭐ prova a fare  test_kukoin.py con l'api di trade appena creata
+
+⭐ api lettura kucoin
+
+
+
+
+kraken
+⭐ crea account kraken
+
+⭐ api trade 
+
+⭐ api lettura 
+
+
+⭐ ccxt kucoin? ccxt kraken? funziona?
 capire se posso usare una sola funzione
 trader_ccxt()
 o devo fare
@@ -10,32 +30,15 @@ trader_kraken
 per le diverse api in relazione anche con ccxt
 
 
-google auth x telerym gmail
 
-⭐ crea account kraken
-⭐ crea account kucoin
-⭐ api trade 
-⭐ api trade 
-⭐ api lettura 
-⭐ api lettura 
-⭐ ccxt kucoin? funziona?
-⭐ ccxt kraken? funziona?
+## Test In production
 
 
 ⭐ Lungo test con la nuova architettura su RBX -> guarda print dei messaggi
 START 15/04/2022 17:39:21
 find pid with htop
 dura piu di 24h
-
-
-
-
-
-
-
-
-
-
+OK 2gg
 
 
 
@@ -225,3 +228,9 @@ trasforma l'architettura
 ⭐ capire a quale exchange affidarsi e con quale strumento
 puntare su okex con leva x10, kucoin x2/x5, ftx x2
     -> ci spostiamo su ftx, kraken e kucoin
+    
+
+⭐ google auth x telerym gmail
+
+⭐ crea account kucoin OK
+⭐ api trading OK

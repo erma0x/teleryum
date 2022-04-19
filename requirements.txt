@@ -1,6 +1,8 @@
 termcolor==1.1.0
 ciso8601==2.2.0
-sqlite3==3.35.5
 python-dotenv==0.19.2
 Telethon==1.24.0
 ccxt==1.77.80
+pandas==1.4.2
+pytz==2022.1
+numpy==1.22.3 

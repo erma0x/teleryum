@@ -1,14 +1,15 @@
 import sys
-sys.path.insert(0,sys.path[0].replace('bot','') ) #  get tests/client.py
-
 import os
 from datetime import datetime
 from dotenv import load_dotenv
 from pprint import pprint
+
+import ccxt
+
+
 load_dotenv()
 RRFTID = os.getenv('RRFTID')
 RRFTSEC = os.getenv('RRFTSEC')
-import ccxt
 
 exchange = ccxt.ftx({
                 'apiKey': RRFTID,
@@ -17,7 +18,20 @@ exchange = ccxt.ftx({
                     })
 
 
-order = exchange.create_limit_buy_order('ETH-PERP', 0.001, 3360.00)
+
+exchange.verbose = True
+
+securities = pd.DataFrame(exchange.load_markets()).transpose()
+
+balance = exchange.fetch_balance()
+pprint(balance)
+
+
+order_response = exchange.create_order(symbol='ADA/USDT:USDT',type='limit',side='buy', amount=1, price=0.7)
+pprint(order_response)
+
+
+order = exchange.create_limit_buy_order(symbol='ADA/USDT:USDT',side='buy', amount=1, price=0.7,)
 print(order)
 
 

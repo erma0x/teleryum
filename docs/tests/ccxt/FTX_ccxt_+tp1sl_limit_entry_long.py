@@ -15,6 +15,9 @@ exchange = ccxt.ftx({
                     })
 
 
+
+
+
 order = exchange.create_limit_buy_order('ETH-PERP', 0.01, 3360.00)
 print(order)
 
