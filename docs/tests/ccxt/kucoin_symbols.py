@@ -32,14 +32,6 @@ exchange = ccxt.kucoinfutures({
 })
 
 #exchange.verbose = True
-#securities = pd.DataFrame(exchange.load_markets()).transpose()
 
-print('-'*80,'\n\t MY BALANCE')
-balance = exchange.fetch_balance()
-
-free_balance = balance['free']['USDT']
-used_balance = balance['used']['USDT']
-total_balance = balance['total']['USDT']
-
-print('free ',free_balance, '   used ',used_balance,' total',total_balance )
-
+order = exchange.symbols
+pprint(order)

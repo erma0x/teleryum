@@ -32,14 +32,13 @@ exchange = ccxt.kucoinfutures({
 })
 
 #exchange.verbose = True
-#securities = pd.DataFrame(exchange.load_markets()).transpose()
+order = exchange.load_markets()
+pprint(order)
 
-print('-'*80,'\n\t MY BALANCE')
-balance = exchange.fetch_balance()
+#  MINIMAL AMOUNT REQUIRED for Kucoinfutures contracts
+# 'contractSize': 0.01
 
-free_balance = balance['free']['USDT']
-used_balance = balance['used']['USDT']
-total_balance = balance['total']['USDT']
 
-print('free ',free_balance, '   used ',used_balance,' total',total_balance )
+# order = exchange.amount_to_precision(symbol='ETH/USDT:USDT', amount=0.132123)
+# pprint(order)
 

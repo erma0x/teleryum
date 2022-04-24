@@ -1,15 +1,35 @@
 # In progress
 ### PRIORITA
 
-⭐ TEST trasferisci 3 da okex a kucoin
+⭐ PARSER 
 
-⭐ trasferisci 30 da okex a kucoin
+⭐ kucoin capisci se sono trade effettivi
+ deve essere messo cosi:
+ se sto utilizzando kucoin vammi a pescare i kucoin contract size
+ e devo fare in modo che indipendentemente dal numero di TP  e SL 
+ devo avere che tutti son multipli interi del minimo incremento.
 
-⭐ prova a fare  test_kukoin.py con l'api di trade appena creata
 
-⭐ api lettura kucoin
+ esempio 
+ entry size: 100
+ 1 tp size : 25
+ 2 tp size : 25
+ 3 tp size : 25
+ 4 tp size : 25
+ ______________
+ 1 SL size : 50
+ 2 SL size : 50
+_______________
+ base contract size : 5/25
+
+linea 87        amount_token_position = 2 
 
 
+
+
+
+
+## dopo
 
 
 kraken
@@ -19,26 +39,18 @@ kraken
 
 ⭐ api lettura 
 
-
-⭐ ccxt kucoin? ccxt kraken? funziona?
-capire se posso usare una sola funzione
-trader_ccxt()
-o devo fare
-trader_ftx
-trader_kucoin
 trader_kraken
-per le diverse api in relazione anche con ccxt
+
+
 
 
 
 ## Test In production
 
+⭐ Lungo test con la nuova architettura su RBX -> guarda print dei messaggi ~ find pid with htop
+START 15 Aprile
 
-⭐ Lungo test con la nuova architettura su RBX -> guarda print dei messaggi
-START 15/04/2022 17:39:21
-find pid with htop
-dura piu di 24h
-OK 2gg
+OK 21 april
 
 
 
@@ -233,4 +245,34 @@ puntare su okex con leva x10, kucoin x2/x5, ftx x2
 ⭐ google auth x telerym gmail
 
 ⭐ crea account kucoin OK
-⭐ api trading OK
+
+⭐ api trading kucoin OK
+
+⭐ TEST trasferisci 3 da okex a kucoin
+
+⭐ api lettura kucoin
+
+⭐ prova a fare  test_kukoin.py con l'api di trade appena creata
+
+⭐ prova a fare  test_kukoin.py con l'api 1tp 1sl
+
+⭐ prova a fare  test_kukoin.py con l'api molteplici tp molti sl
+
+⭐ kucoinfutures rebalancer quantities
+
+⭐ trasferisci 30 da okex a kucoin
+
+⭐ ccxt kucoin? ccxt kraken? funziona?
+capire se posso usare una sola funzione
+trader_ccxt()
+ => piu cose
+
+⭐ trader_kucoin
+
+⭐ trader_ftx
+
+⭐ kucoin ccxt get balance
+
+⭐ kucoin trader position sizing
+
+⭐ lunch with private channel Kucoin
