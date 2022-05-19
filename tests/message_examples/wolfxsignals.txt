@@ -1,0 +1,56 @@
+
+CELO/USDT 📈 BUY
+
+🔹Enter above: 1.729-1.731
+
+💰TP1 1.736
+💰TP2 1.749
+💰TP3 1.790
+🚫SL 1.630
+
+〽️Leverage 10x
+
+⚠️This Trade must be set up as a STOP LIMIT order. Respect the entry zone.
+
+
+
+
+
+
+
+MASK/USDT
+
+🔹Enter below: 1.7840-1.7820
+
+📉SELL 
+
+💰TP1 1.7770
+💰TP2 1.7640
+💰TP3 1.7200
+🚫SL 1.8800
+
+〽️Leverage 10x
+
+⚠️This Trade must be set up as a STOP LIMIT SELL order. Respect the entry zone.
+
+
+
+
+
+
+
+
+RUNE/USDT
+
+🔹Enter below: 4.6319-4.6270
+
+📉SELL
+
+💰TP1 4.6130
+💰TP2 4.5810
+💰TP3 4.4610
+🚫SL 4.9100
+
+〽️Leverage 10x
+
+⚠️This Trade must be set up as a STOP LIMIT SELL order. Respect the entry zone.

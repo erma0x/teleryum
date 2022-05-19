@@ -1,0 +1,100 @@
+Polkadot Trade Signal (INTRADAY)
+
+Instrument: DOT/USD 
+My opinion: Sell (Instant Execution)
+Entry price: $20.45
+Stop: $25.45
+Target: $5.45
+My risk setting: 1% 
+RRR: 1:3
+
+
+📛📛FREE SIGNAL ALERT📛📛
+
+Lucky Block Trade Signal (SWING)
+
+Instrument: LBLOCK/USD
+My opinion: Buy (Instant Execution)
+Entry price: $0.0032
+Stop: $0.0025
+Target: $0.0070
+Our risk setting: 1%
+RRR: 1:3
+
+
+
+  
+0x (ZRXUSD) Trade Signal (INTRA DAY)   
+
+Instrument: ZRX/USD  
+My opinion: Buy Stop  
+Entry price: $0.962 
+Stop: $0.845 
+Target: $1.197 
+Our risk setting: 1%  
+RRR: 1:2  
+ 
+NB: We will close this pending trade if not triggered within 10 hours.  
+
+
+
+📛📛FREE SIGNAL ALERT📛📛
+
+Lucky Block Trade Signal (SWING)
+
+Instrument: LBLOCK/USD
+My opinion: Buy Limit
+Entry price: $0.0030
+Stop: $0.0015
+Target: $0.0070
+Our risk setting: 1%
+RRR: 1:3
+
+NB: We will close this pending trade if not triggered within 10 hours
+
+
+
+
+📛📛FREE SIGNAL ALERT📛📛
+
+Lucky Block Trade Signal (SWING)
+
+Instrument: LBLOCK/USD
+My opinion: Buy Limit
+Entry price: $0.0030
+Stop: $0.0015
+Target: $0.0065
+Our risk setting: 1%
+RRR: 1:3
+
+NB: We will close this pending trade if not triggered within 10 hours
+
+
+
+📛📛FREE SIGNAL ALERT📛📛
+
+Lucky Block Trade Signal (SWING)
+
+Instrument: LBLOCK/USD
+My opinion: Buy Limit
+Entry price: $0.0030
+Stop: $0.0015
+Target: $0.0065
+Our risk setting: 1%
+RRR: 1:3
+
+NB: We will close this pending trade if not triggered within 10 hours
+
+📛📛FREE SIGNAL ALERT📛📛
+
+Lucky Block Trade Signal (SWING)
+
+Instrument: LBLOCK/USD
+My opinion: Buy Limit
+Entry price: $0.0035
+Stop: $0.0015
+Target: $0.0070
+Our risk setting: 1%
+RRR: 1:3
+
+NB: We will close this pending trade if not triggered within 10 hours

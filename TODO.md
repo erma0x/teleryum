@@ -1,42 +1,24 @@
 # In progress
 ### PRIORITA
 
-⭐ PARSER 
+⭐ PARSERs/wolfxsignals_online_test canale privato
+⭐ PARSERs/wolfxsignals_online
+⭐ server ssh
+⭐ FIX amount_token_position
+⭐ Carica i soldi su Kucoin
+⭐ FARE in modo che se un messaggio viene postato su di un gruppo, allora
+posso copiarlo ed incollare il testo sul mio canale privato e la mettere un parser
+che mi automatizza il trading.
+⭐ server, devi riconfigurare l'ssh
+⭐ trova un sistema per fare dei test con un unico file .env
 
-⭐ kucoin capisci se sono trade effettivi
- deve essere messo cosi:
- se sto utilizzando kucoin vammi a pescare i kucoin contract size
- e devo fare in modo che indipendentemente dal numero di TP  e SL 
- devo avere che tutti son multipli interi del minimo incremento.
-
-
- esempio 
- entry size: 100
- 1 tp size : 25
- 2 tp size : 25
- 3 tp size : 25
- 4 tp size : 25
- ______________
- 1 SL size : 50
- 2 SL size : 50
-_______________
- base contract size : 5/25
-
-linea 87        amount_token_position = 2 
-
-
-
-
-
+## INFORMAZIONI _________________________
+⭐ ID WolfXsignals          1338521686
 
 ## dopo
 
-
-kraken
 ⭐ crea account kraken
-
 ⭐ api trade 
-
 ⭐ api lettura 
 
 trader_kraken
@@ -48,9 +30,8 @@ trader_kraken
 ## Test In production
 
 ⭐ Lungo test con la nuova architettura su RBX -> guarda print dei messaggi ~ find pid with htop
-START 15 Aprile
-
-OK 21 april
+START 15 Aprile - Continua a prendere i messaggi della macchina.
+OK 12 Maggio
 
 
 
@@ -276,3 +257,13 @@ trader_ccxt()
 ⭐ kucoin trader position sizing
 
 ⭐ lunch with private channel Kucoin
+
+
+⭐ kucoin capisci se sono trade effettivi
+ deve essere messo cosi:
+ se sto utilizzando kucoin vammi a pescare i kucoin contract size
+ e devo fare in modo che indipendentemente dal numero di TP  e SL 
+ devo avere che tutti son multipli interi del minimo incremento.
+
+
+⭐ PARSERs/wolfxsignals_offline
