@@ -6,7 +6,7 @@ from datetime import datetime
 from telethon.sync import TelegramClient, events
 
 from sqlite_helper import *
-from params import NAME_DB
+from utils.params import NAME_DB
 
 if __name__ == "__main__":
 

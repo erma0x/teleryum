@@ -24,7 +24,7 @@ from ftx.ftx_perpetuals import ftx_perpetuals
 from kucoin.utils import *
 from kucoin.contracts import kucoinfutures_contract_size
 
-from channels import *
+from utils.channels import *
 from utils_bot.params import *
 from utils_bot.printer import *
 

@@ -3,7 +3,10 @@
 .env
 *.out
 
+./TODO.md
 TODO.md
+
+personal_channels.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

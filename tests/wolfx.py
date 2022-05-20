@@ -17,9 +17,9 @@ import asyncio
 from telethon import TelegramClient, events
 
 sys.path.append('../teleryum')
-from params import base_operation_data_structure as op_data
-from params import project_folder
-from params import PRIVATE_TEST_CHANNEL
+from utils.params import base_operation_data_structure as op_data
+from utils.params import project_folder
+from utils.params import PRIVATE_TEST_CHANNEL
 
 def parser_wolfxsignals(text_message):
 

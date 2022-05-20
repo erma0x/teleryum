@@ -11,8 +11,8 @@ import ccxt
 
 from FTXclient import FtxClient
 from FTXperpetuals import ftx_perpetuals
-from params import *
-from channels import *
+from utils.params import *
+from utils.channels import *
 
 def opposite(type_order):
     if type_order=='buy':

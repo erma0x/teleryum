@@ -11,7 +11,7 @@ from client import FtxClient
 import ccxt
 
 from trader_teleryum import *
-from params import *
+from utils.params import *
 from perpetuals_ftx import perpetuals
 
 def opposite(type_order):

@@ -4,7 +4,7 @@ from termcolor import colored
 from dotenv import load_dotenv
 import ccxt
 from client import FtxClient
-from params import *
+from utils.params import *
 
 load_dotenv()
 FTX_API_ID_READONLY = os.getenv('FTX_API_ID_READONLY')

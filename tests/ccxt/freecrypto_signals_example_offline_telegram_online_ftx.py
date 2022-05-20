@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 from pprint import pprint
-from channels import *
+from utils.channels import *
 load_dotenv()
 RRFTID = os.getenv('RRFTID')
 RRFTSEC = os.getenv('RRFTSEC')

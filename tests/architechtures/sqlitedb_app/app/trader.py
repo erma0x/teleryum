@@ -9,7 +9,7 @@ from watchdog.events import FileSystemEventHandler
 import ccxt
 import ccxt.async_support as ccxt  # noqa: E402
 
-from params import *
+from utils.params import *
 from sqlite_helper import *
 
 

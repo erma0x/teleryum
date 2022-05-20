@@ -6,8 +6,8 @@ from telethon import utils
 from telethon.sync import TelegramClient, events
 import sys
 sys.path.append('../teleryum')
-from params import base_operation_data_structure as op_data
-from params import project_folder
+from utils.params import base_operation_data_structure as op_data
+from utils.params import project_folder
 
 load_dotenv(os.path.join(project_folder.replace('/tests/telegram',''), '.env'))
 

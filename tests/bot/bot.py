@@ -9,7 +9,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from termcolor import colored
 from telethon.sync import TelegramClient, events
-from channels import *
+from utils.channels import *
 
 if __name__ == "__main__":
 
