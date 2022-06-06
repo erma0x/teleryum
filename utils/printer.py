@@ -1,3 +1,5 @@
+from termcolor import colored
+
 def print_start():
     print(colored(LOGO,"cyan"))
     now = datetime.now(tzinfo)
