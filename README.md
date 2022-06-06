@@ -8,27 +8,27 @@ Telegram message scanner and automated trader  <br>
 
 ### How to Run 
 
+Step 1. Connect to server via ssh and express connecting rules
+
 ```ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME```
 
+Step 2. activate virtual enviroenment
+
 ```source ./venv/bin/activate```
+
+Step 3. lunch demon trader with python3 and nohup
 
 a. ```nohup python3 -u teleryum.py 1> log.out 2> log.err &```
 
 b. ```python3 teleryum.py```
 
 ### Installation
-1. #### Insert Telegram signal channels on params.py (example)
+1. Insert Telegram signal channels on **params.py**
+
+(This is an example)
 ```python
-CHANNEL_1 = 'freecrypto_signals'
-CHANNEL_2 = 'cryptosignals0rg'
-CHANNEL_3 = 'fatpigsignals'
-CHANNEL_4 = 'BinanceKillersVipOfficial'
-CHANNEL_5 = 'CryptoTrades'
-CHANNEL_6 = 'Coin_Signals'
-CHANNEL_7 = 'HIRN_CRYPTO'
-CHANNEL_8 = 'cryptohopperofficial'
-CHANNEL_9 = 'altsignals'
-CHANNEL_10 = 'SignalsBlueChannel'
+CHANNEL_1 = 'free_crypto_signals'
+CHANNEL_2 = 'my_crypto_signals_vip'
 ```
 
 2. #### Install environment
@@ -49,24 +49,12 @@ Create .env file inside the project root folder and insert all your credential a
     TELEGRAM_USERNAME = "@username"
     TELEGRAM_ID = 12345678
     TELEGRAM_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
-    FTX_READONLY = "XXXXXXXXXXXXXXXXXXXXXXXXX"
-    FTX_READONLY_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
-    FTX_API_MAIN = "XXXXXXXXXXXXXXXXXXXXXXXXX"
-    FTX_API_MAIN_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    TRADING_API_READONLY = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    TRADING_API_READONLY_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    TRADING_API_MAIN = "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    TRADING_API_MAIN_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
 
 <br>
-
-# Documents
-EXCHANGEs
-1. kucoin
-2. kraken
-3. ftx
-
-CHANNELS
-INITIAL CAP
-2k
-1m 4k
-2m 6k
 
 ## How to get credentials
 ### FTX exchange
