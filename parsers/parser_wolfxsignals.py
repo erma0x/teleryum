@@ -1,6 +1,6 @@
 from datetime import datetime
 
-def bot_wolfxsignals(text_message):
+def parser_wolfxsignals(text_message):
 
     op_data={'side':'','symbol':'','take_profits':[],'entry_prices':[],'stop_losses':[],'laverage':1}
 

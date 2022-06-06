@@ -25,10 +25,10 @@ from kucoin.utils import *
 from kucoin.contracts import kucoinfutures_contract_size
 
 from utils.channels import *
-from utils_bot.params import *
-from utils_bot.printer import *
+from utils.params import *
+from utils.printer import print_message, print_start
 
-from parsers.parser_wolfxsignals import *
+from parsers.parser_wolfxsignals import parser_wolfxsignals
 
 def opposite(type_order):
     if type_order=='buy':
@@ -62,7 +62,7 @@ async def trader_kucoinfutures(order_data, exchange, maintenance_capital =0.05):
     order_data = string_to_float_prices(op_data_structure=order_data)
     order_data = sort_orders(op_data_structure=order_data)
     
-    amount_usd_position = await get_amount_position_usdt_kucoinfutures()
+    amount_usd_position = await get_amount_position_usdt()
 
     if print_op: print('position in usdt $ ',amount_usd_position,'leverage ',order_data['leverage'])
 
@@ -77,11 +77,8 @@ async def trader_kucoinfutures(order_data, exchange, maintenance_capital =0.05):
         
         entry_price = deepcopy(order_data['entry_prices'][i])
 
-        # amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
+        amount_token_position = round( amount_usd_position / n_entry_prices / entry_price , 8 )
         	
-        	# TO FIX
-        amount_token_position = 2 ############################################
-
 
         if print_op: print('amount_token_position ',amount_token_position)      
         
@@ -123,7 +120,7 @@ async def trader_ftx(order_data, exchange,maintenance_capital =0.05):
     order_data = string_to_float_prices(op_data_structure=order_data)
     order_data = sort_orders(op_data_structure=order_data)
     
-    amount_usd_position = await get_amount_position_usdt_ftx()
+    amount_usd_position = await get_amount_position_usdt()
 
     if print_op: print('position in usdt $ ',amount_usd_position,'real LEVERAGE on FTX: 2 ')
 
@@ -131,7 +128,7 @@ async def trader_ftx(order_data, exchange,maintenance_capital =0.05):
     n_take_profits = len(order_data['take_profits'])
     n_stop_losses = len(order_data['stop_losses'])
 
-    if get_free_balance_ftx() < (1+maintenance_capital) * amount_usd_position:
+    if get_free_balance() < (1+maintenance_capital) * amount_usd_position:
         return None
 
     for i in range(len(order_data['entry_prices'])): 
@@ -199,31 +196,9 @@ async def deamon_trader(op_data,channel):
     })
 
     await trader_kucoinfutures( order_data = op_data , exchange = kucoinfutures_main)
-
-    # if channel in (1,'1'):
-    #     if op_data['symbol'] in kucoin_perpetuals:
-    #         await trader_kucoinfutures( order_data = op_data , exchange = kucoinfutures_main)
-
-    #     # elif op_data['symbol'] in kraken_perpetuals:
-    #     #     await trader_kraken( order_data = op_data , exchange = kraken_c1 )     
-
-    #     elif op_data['symbol'] in ftx_perpetuals:
-    #         await trader_ftx( order_data = op_data , exchange = ftx_c1 )     
-    #     else:
-    #         print('OPERATION UNSUCCESFUL: no ticker found    channel: ',channel)
-
-    # if channel in (2,'2'):
-    #     if op_data['symbol'] in kucoin_perpetuals:
-    #         await trader_kucoinfutures( order_data = op_data , exchange = kucoinfutures_main)
-
-    #     # elif op_data['symbol'] in kraken_perpetuals:
-    #     #     await trader_kraken( order_data = op_data , exchange = kraken_c1 )     
-
-    #     elif op_data['symbol'] in ftx_perpetuals:
-    #         await trader_ftx( order_data = op_data , exchange = ftx_c1 )     
-    #     else:
-    #         print('OPERATION UNSUCCESFUL: no ticker found    channel: ',channel)
-
+    # To implement
+    # ftx_trader with FTX API in subs 
+    # for kucoinfutures with ccxt API in particular conditions 
 
 async def main():      
     load_dotenv()
@@ -238,22 +213,14 @@ async def main():
 
     while True:
         # t.me/test_channel_pubblico_24991204  
-        @client.on(events.NewMessage( chats =  ))
-        async def trader_PUBLIC_TEST_CHANNEL( event ):
+        # t.me/freecrypto_signals 
+        @client.on(events.NewMessage( chats = CHANNEL_1 ))
+        async def trader_CHANNEL_1( event ):
             NEW_MESSAGE = event.message.message
-            signal = parser_c1( new_message = NEW_MESSAGE)
+            signal = parser_wolfxsignals( new_message = NEW_MESSAGE)
             if signal:
-                print_message( message = NEW_MESSAGE, channel = wolfxsignals )
-                await deamon_trader(op_data = signal, channel = 1)
-
-        # # t.me/freecrypto_signals 
-        # @client.on(events.NewMessage( chats = CHANNEL_1 ))
-        # async def trader_CHANNEL_1( event ):
-        #     NEW_MESSAGE = event.message.message
-        #     signal = parser_CHANNEL_1( new_message = NEW_MESSAGE)
-        #     if signal:
-        #         print_message( message = NEW_MESSAGE, channel = CHANNEL_1 )
-        #         # await global_trader()
+                print_message( message = NEW_MESSAGE, channel = CHANNEL_1 )
+                await deamon_trader()
 
         await asyncio.sleep(1)
 
