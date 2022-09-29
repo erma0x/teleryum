@@ -1,4 +1,7 @@
 # Teleryum
+
+![](docs/teleryum.png)
+
 ### Description
 Telegram message scanner and automated trader  <br>
 
