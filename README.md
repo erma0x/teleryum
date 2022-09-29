@@ -1,31 +1,36 @@
 # Teleryum
+### Telegram message scanner and automated trader with ftx.com and kucoin.com <br>
 
-![](docs/teleryum.png)
+![](docs/Teleryum.png)
 
-### Description
-Telegram message scanner and automated trader  <br>
-
+## Workflow
  1. Scan incoming messages from telegram
  2. Find out if the new message is a signal
  3. If it is a signal, parse it and send it as operation to okex.com or ftx.com with ccxt open source library
 
-### How to Run 
 
-Step 1. Connect to server via ssh and express connecting rules
 
-```ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME```
+## How to Run 
 
-Step 2. activate virtual enviroenment
+1. Connect to server via ssh and express connecting rules
 
-```source ./venv/bin/activate```
+    ```ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME```
 
-Step 3. lunch demon trader with python3 and nohup
+2. activate virtual enviroenment
 
-a. ```nohup python3 -u teleryum.py 1> log.out 2> log.err &```
+    ```source ./venv/bin/activate```
 
-b. ```python3 teleryum.py```
+3. lunch demon trader with python3 and nohup
 
-### Installation
+       a. ```nohup python3 -u teleryum.py 1> log.out 2> log.err &```
+
+       b. ```python3 teleryum.py```
+
+
+
+## Installation
+
+
 1. Insert Telegram signal channels on **params.py**
 
 (This is an example)
@@ -34,7 +39,7 @@ CHANNEL_1 = 'free_crypto_signals'
 CHANNEL_2 = 'my_crypto_signals_vip'
 ```
 
-2. #### Install environment
+2. ### Install environment
 ```bash
 # generate base virtual environment
 python3 -m venv venv
@@ -45,7 +50,7 @@ python3 -m pip install --upgrade pip
 # install 3rd party libraries
 pip install -r requirements.txt 
 ```
-3. #### Create .env file
+3. ### Create .env file
 
 Create .env file inside the project root folder and insert all your credential and API keys into it 
 
