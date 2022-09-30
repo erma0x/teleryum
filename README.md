@@ -13,18 +13,14 @@
 ## How to Run 
 
 1. Connect to server via ssh and express connecting rules
+    `ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME`
 
-    ```ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=2 $HOSTNAME```
+2. Activate the virtual enviroenment
+    `source ./venv/bin/activate`
 
-2. activate virtual enviroenment
-
-    ```source ./venv/bin/activate```
-
-3. lunch demon trader with python3 and nohup
-
-       a. ```nohup python3 -u teleryum.py 1> log.out 2> log.err &```
-
-       b. ```python3 teleryum.py```
+3. Start demon trader with python3 and nohup <br>
+       LIVE MODE -> `nohup python3 -u teleryum.py 1> log.out 2> log.err &` <br>
+       TEST MODE -> `python3 teleryum.py` <br>
 
 
 
