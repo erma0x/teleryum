@@ -22,23 +22,21 @@ Telegram automated trader with ftx.com and kucoin.com <br>
     `source ./venv/bin/activate`
 
 3. Start demon trader with python3 and nohup <br>
-       LIVE MODE -> `nohup python3 -u teleryum.py 1> log.out 2> log.err &` <br>
-       TEST MODE -> `python3 teleryum.py` <br>
+       LIVE MODE ➡️ `nohup python3 -u teleryum.py 1> log.out 2> log.err &` <br>
+       TEST MODE ➡️ `python3 teleryum.py` <br>
 
 
 
 ## Installation
 
 
-1. Insert Telegram signal channels on **params.py**
-
-(This is an example)
+1. Insert Telegram signal channels on **params.py**  (This is an example)
 ```python
 CHANNEL_1 = 'free_crypto_signals'
 CHANNEL_2 = 'my_crypto_signals_vip'
 ```
 
-2. ### Install environment
+2. Install environment
 ```bash
 # generate base virtual environment
 python3 -m venv venv
@@ -49,10 +47,8 @@ python3 -m pip install --upgrade pip
 # install 3rd party libraries
 pip install -r requirements.txt 
 ```
-3. ### Create .env file
-
-Create .env file inside the project root folder and insert all your credential and API keys into it 
-
+3. Create .env file inside the project root folder and insert all your credential and API keys into it 
+```
     TELEGRAM_USERNAME = "@username"
     TELEGRAM_ID = 12345678
     TELEGRAM_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -60,7 +56,7 @@ Create .env file inside the project root folder and insert all your credential a
     TRADING_API_READONLY_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
     TRADING_API_MAIN = "XXXXXXXXXXXXXXXXXXXXXXXXX"
     TRADING_API_MAIN_HASH = "XXXXXXXXXXXXXXXXXXXXXXXXX"
-
+```
 <br>
 
 ## How to get credentials
