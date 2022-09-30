@@ -1,11 +1,11 @@
 # Teleryum
-Telegram message scanner and automated trader with ftx.com and kucoin.com <br>
+Telegram automated trader with ftx.com and kucoin.com <br>
 
 ![](docs/Teleryum.png)
 
 ## Workflow
  1. Scan incoming messages from telegram
- 2. Find out if the new message is a signal
+ 2. Find out if the new message is a trading signal
  3. If it is a signal, parse it and send it as a trading operation to kucoin.com with ccxt or ftx.com with native python api.
 
 ## Features
